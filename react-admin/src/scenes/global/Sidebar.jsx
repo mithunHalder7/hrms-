@@ -68,10 +68,6 @@ const Sidebar = () => {
         "& .pro-menu-item.active": {
           color: "#6870fa !important",
         },
-        "& .pro-menu-item:last-child": {
-          color: "#8c6677 !important",
-          borderRadius: "0px 0px 23px 23px",
-        },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
