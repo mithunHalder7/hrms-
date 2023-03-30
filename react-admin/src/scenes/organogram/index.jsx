@@ -8,12 +8,4 @@ import { Box, Typography, useTheme } from "@mui/material";
 export default function Organogram() {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  return
-  (
-    <Box m="20px">
-    <Header
-      title="কর্মকর্তা/কর্মচারী "
-      subtitle="কর্মকর্তা/কর্মচারীর তালিকা"
-    />
-  )
 }

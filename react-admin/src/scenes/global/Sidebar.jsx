@@ -17,6 +17,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { BorderAll } from "@mui/icons-material";
+import MediationOutlinedIcon from '@mui/icons-material/MediationOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -102,9 +103,9 @@ const Sidebar = () => {
 
             
             <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
+              title="Organogram"
+              to="/organogram"
+              icon={<MediationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
