@@ -16,6 +16,8 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import { BorderAll } from "@mui/icons-material";
+import MediationOutlinedIcon from '@mui/icons-material/MediationOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -27,8 +29,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         color: colors.grey[100],
       }}
       onClick={() => setSelected(title)}
-      icon={icon}
-    >
+      icon={icon}>
+
       <Typography>{title}</Typography>
       <Link to={to} />
     </MenuItem>
@@ -45,7 +47,12 @@ const Sidebar = () => {
     <Box
       sx={{
         "& .pro-sidebar-inner": {
-          backgroundColor:"#CA4E79",
+          position: "absolute",
+          left: "15px",
+          top: "14px",
+          background: "#F7FBFC",
+          boxShadow: "0px 4px 35px -3px rgba(0, 0, 0, 0.25)",
+          borderRadius: "55px"
           
         },
         "& .pro-icon-wrapper": {
@@ -53,7 +60,8 @@ const Sidebar = () => {
         },
         "& .pro-inner-item": {
           
-          backgroundColor:"#CA4E79"
+          backgroundColor:"#F7FBFC",
+          borderRadius: "60px"
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -64,29 +72,20 @@ const Sidebar = () => {
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
+        <Menu>
           {/* LOGO AND MENU ICON */}
-          <MenuItem
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{
-              margin: "10px 0 20px 0",
-              color: colors.grey[100],
-            }}
-          >
-            {!isCollapsed && (
+          <MenuItem>
+            {(
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
+                ml="30px"
+                mt="25px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
-                  ADMINIS
+                <Typography variant="h3" color={colors.redAccent}>
+                  HRMS++
                 </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-                  <MenuOutlinedIcon />
-                </IconButton>
               </Box>
             )}
           </MenuItem>
@@ -104,9 +103,9 @@ const Sidebar = () => {
 
             
             <Item
-              title="Manage Team"
-              to="/team"
-              icon={<PeopleOutlinedIcon />}
+              title="অরগানোগ্রাম"
+              to="/organogram"
+              icon={<MediationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
