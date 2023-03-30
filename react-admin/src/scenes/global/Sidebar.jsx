@@ -103,7 +103,7 @@ const Sidebar = () => {
 
             
             <Item
-              title="Organogram"
+              title="অরগানোগ্রাম"
               to="/organogram"
               icon={<MediationOutlinedIcon />}
               selected={selected}
