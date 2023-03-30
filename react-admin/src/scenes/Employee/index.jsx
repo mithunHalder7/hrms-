@@ -17,7 +17,7 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import Container from '@mui/material/Container';
+import Container from "@mui/material/Container";
 
 const EmlpoyeeList = () => {
   const theme = useTheme();
@@ -100,6 +100,27 @@ const EmlpoyeeList = () => {
       field: "zipCode",
       headerName: "Zip Code",
       flex: 1,
+    },
+  ];
+
+
+  //selectbox values
+  const currencies = [
+    {
+      value: 'USD',
+      label: '$',
+    },
+    {
+      value: 'EUR',
+      label: '€',
+    },
+    {
+      value: 'BTC',
+      label: '฿',
+    },
+    {
+      value: 'JPY',
+      label: '¥',
     },
   ];
 
@@ -247,6 +268,23 @@ const EmlpoyeeList = () => {
                       sx={{ gridColumn: "span 1" }}
                     />
                     <TextField
+                      id="filled-select-currency-native"
+                      select
+                      label="Native select"
+                      defaultValue="EUR"
+                      SelectProps={{
+                        native: true,
+                      }}
+                      helperText="Please select your currency"
+                      variant="filled"
+                    >
+                      {currencies.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </TextField>
+                    <TextField
                       fullWidth
                       variant="filled"
                       type="text"
@@ -307,7 +345,7 @@ const EmlpoyeeList = () => {
                         color="secondary"
                         variant="contained"
                       >
-                        সংযোজন 
+                        সংযোজন
                       </Button>
                     </Box>
                   </Box>
