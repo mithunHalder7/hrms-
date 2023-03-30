@@ -1,113 +1,92 @@
+import React, { useCallback } from 'react';
+import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, Controls } from 'reactflow';
+
+import 'reactflow/dist/base.css';
+
+// import './tailwind-config.js';
+import CustomNode from './CustomNode';
+import './index.css';
+
 import { Box, TextField } from "@mui/material";
 import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
-import React, { useCallback } from 'react';
-import ReactFlow, { addEdge, ConnectionLineType, useNodesState, useEdgesState } from 'reactflow';
-import dagre from 'dagre';
-import 'reactflow/dist/style.css';
 
 
-import { initialNodes, initialEdges } from './nodes-edges.js';
-
-import './index.css';
-
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
-
-const nodeWidth = 172;
-const nodeHeight = 36;
-
-const getLayoutedElements = (nodes, edges, direction = 'TB') => {
-  const isHorizontal = direction === 'LR';
-  dagreGraph.setGraph({ rankdir: direction });
-
-  nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
-  });
-
-  edges.forEach((edge) => {
-    dagreGraph.setEdge(edge.source, edge.target);
-  });
-
-  dagre.layout(dagreGraph);
-
-  nodes.forEach((node) => {
-    const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = isHorizontal ? 'left' : 'top';
-    node.sourcePosition = isHorizontal ? 'right' : 'bottom';
-
-    // We are shifting the dagre node position (anchor=center center) to the top left
-    // so it matches the React Flow node anchor point (top left).
-    node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
-    };
-
-    return node;
-  });
-
-  return { nodes, edges };
+const nodeTypes = {
+  custom: CustomNode,
 };
 
-const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-  initialNodes,
-  initialEdges
-);
+const initNodes = [
+  {
+    id: '1',
+    type: 'custom',
+    data: { name: 'Jane Doe', job: 'CEO', emoji: '😎' },
+    position: { x: 0, y: 50 },
+  },
+  {
+    id: '2',
+    type: 'custom',
+    data: { name: 'Tyler Weary', job: 'Designer', emoji: '🤓' },
+
+    position: { x: -200, y: 200 },
+  },
+  {
+    id: '3',
+    type: 'custom',
+    data: { name: 'Kristi Price', job: 'Developer', emoji: '🤩' },
+    position: { x: 200, y: 200 },
+  },
+];
+
+const initEdges = [
+  {
+    id: 'e1-2',
+    source: '1',
+    target: '2',
+  },
+  {
+    id: 'e1-3',
+    source: '1',
+    target: '3',
+  },
+];
 
 
 const Organogram = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
 
-  const onConnect = useCallback(
-    (params) =>
-      setEdges((eds) =>
-        addEdge({ ...params, type: ConnectionLineType.SmoothStep, animated: true }, eds)
-      ),
-    []
-  );
-  const onLayout = useCallback(
-    (direction) => {
-      const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-        nodes,
-        edges,
-        direction
-      );
-
-      setNodes([...layoutedNodes]);
-      setEdges([...layoutedEdges]);
-    },
-    [nodes, edges]
-  );
+  const onConnect = useCallback((params) => setEdges((eds) => addEdge(params, eds)), []);
 
   return (
     <div className="layoutflow">
       <Box m="20px">
       <Header
-        title="কর্মকর্তা/কর্মচারী "
-        subtitle="কর্মকর্তা/কর্মচারীর তালিকা"
+        title="অরগানোগ্রাম"
+        subtitle="সামগ্রিক অরগানোগ্রাম"
       />
       </Box>
       <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
-        connectionLineType={ConnectionLineType.SmoothStep}
-        fitView
-      />
-      <div className="controls">
-        <button onClick={() => onLayout('TB')}>vertical layout</button>
-        <button onClick={() => onLayout('LR')}>horizontal layout</button>
-      </div>
+      nodes={nodes}
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange}
+      onConnect={onConnect}
+      nodeTypes={nodeTypes}
+      fitView
+      className="bg-teal-50"
+      >
+      <MiniMap />
+      <Controls />
+    </ReactFlow>
     </div>
   );
 };
 
 export default Organogram;
+      
 
   
