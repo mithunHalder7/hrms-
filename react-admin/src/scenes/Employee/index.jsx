@@ -10,6 +10,8 @@ import Modal from "@mui/material/Modal";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import React from "react";
+import { useState } from "react";
+import { useFormik } from "formik";
 
 import { Formik } from "formik";
 import * as yup from "yup";
@@ -26,11 +28,12 @@ const EmlpoyeeList = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const isNonMobile = useMediaQuery("(min-width:600px)");
+  //state and function from form
 
-  const handleFormSubmit = (values) => {
-    console.log(values);
-  };
+  // const handleFormSubmit = (values) => {
+  //   console.log(values);
+  //   useFormik.resetForm();
+  // };
 
   const phoneRegExp =
     /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
@@ -38,7 +41,7 @@ const EmlpoyeeList = () => {
   const checkoutSchema = yup.object().shape({
     name: yup.string().required("required"),
     fathers_name: yup.string().required("required"),
-    mothers_name:yup.string().required("required"),
+    mothers_name: yup.string().required("required"),
     email: yup.string().email("invalid email").required("required"),
     contact: yup
       .string()
@@ -50,7 +53,7 @@ const EmlpoyeeList = () => {
   const initialValues = {
     name: "",
     fathers_name: "",
-    mothers_name:"",
+    mothers_name: "",
     email: "",
     contact: "",
     address1: "",
@@ -144,7 +147,7 @@ const EmlpoyeeList = () => {
           justifyContent="flex-end"
           alignItem="flex-end"
         >
-          <p style={{color:'black'}}>এমপ্লয়ী যুক্ত করুন</p>
+          <p style={{ color: "black" }}>এমপ্লয়ী যুক্ত করুন</p>
           <IconButton
             color="success"
             aria-label="add to shopping cart"
@@ -173,10 +176,14 @@ const EmlpoyeeList = () => {
               color: "black",
             }}
           >
-            <h1 style={{ color: "white" }}>Add Employee</h1>
+            <h1 style={{ color: "white" }}>কর্মকর্তা/কর্মচারী সংযোজন </h1>
 
             <Formik
-              onSubmit={handleFormSubmit}
+              onSubmit={(values, { resetForm }) => {
+                // do your stuff
+                console.log(values);
+                resetForm();
+              }}
               initialValues={initialValues}
               validationSchema={checkoutSchema}
             >
@@ -187,6 +194,7 @@ const EmlpoyeeList = () => {
                 handleBlur,
                 handleChange,
                 handleSubmit,
+                resetForm,
               }) => (
                 <form onSubmit={handleSubmit}>
                   <Box
@@ -291,10 +299,17 @@ const EmlpoyeeList = () => {
                       sx={{ gridColumn: "span 4" }}
                     />
                   </Box>
-                  <Box display="flex" justifyContent="end" mt="20px">
-                    <Button type="submit" color="secondary" variant="contained">
-                      Create New User
-                    </Button>
+
+                  <Box display="flex" justifyContent="end">
+                    <Box mt="20px">
+                      <Button
+                        type="submit"
+                        color="secondary"
+                        variant="contained"
+                      >
+                        সংযোজন 
+                      </Button>
+                    </Box>
                   </Box>
                 </form>
               )}
