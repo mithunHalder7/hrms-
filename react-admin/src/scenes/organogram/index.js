@@ -8,11 +8,6 @@ import DefaultScreen from './DefaultScreen';
 import OrganogramScene from './OrganogramScreen';
 
 
-const _ = require('lodash');
-const isObjectEmpty = (objectName) => {
-  return _.isEmpty(objectName);
-};
-
 
 const Organogram = () => {
   const [open, setOpen] = React.useState(false);
@@ -25,17 +20,7 @@ const Organogram = () => {
   else 
   {
     return (
-      <div className="layoutflow">
-  
-        {/* header  */}
-  
-        <Box m="20px">
-          <Header
-            title="অরগানোগ্রাম"
-            subtitle="সামগ্রিক অরগানোগ্রাম"
-          />
-        </Box>
-      </div>
+      <OrganogramScene/>
     );
 
   }
