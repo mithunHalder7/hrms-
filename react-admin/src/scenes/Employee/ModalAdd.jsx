@@ -5,6 +5,7 @@ import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
 import { Formik } from "formik";
 import * as yup from "yup";
+import Header from "../../components/Header";
 
 const ModalAddEmployee = () => {
   //Modal ADD
@@ -92,7 +93,7 @@ const ModalAddEmployee = () => {
             color: "black",
           }}
         >
-          <h1 style={{ color: "white" }}>কর্মকর্তা/কর্মচারী সংযোজন </h1>
+          <Header sx={{ color: "success" }} title="কর্মকর্তা/কর্মচারী সংযোজন"/>
 
           <Formik
             onSubmit={(values, { resetForm }) => {

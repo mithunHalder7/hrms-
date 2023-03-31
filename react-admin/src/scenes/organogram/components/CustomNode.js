@@ -9,7 +9,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Paper, { PaperProps } from '@mui/material/Paper';
 import Draggable from 'react-draggable';
-import GroupOrientation from './DialogButton';
+import AssignEmployeeBtn from './AssignEmployeeBtn';
 
 function PaperComponent(props: PaperProps) {
   return (
@@ -50,7 +50,7 @@ function CustomNode({ data }) {
 
       >
         <DialogContent>
-          <GroupOrientation/>
+          <AssignEmployeeBtn/>
         </DialogContent>
       </Dialog>
 
