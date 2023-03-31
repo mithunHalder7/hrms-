@@ -1,5 +1,201 @@
 import { tokens } from "../theme";
 
+export const mockDataEmployee = [
+  {
+    "id": "64257a16b7445bee6e9d8616",
+    "name": "Leanne Mcintosh",
+    "email": "leannemcintosh@applideck.com",
+    "phone": "+1 (999) 542-2465",
+    "address": "694 Elm Place, Nicut, Nebraska, 2392"
+  },
+  {
+    "id": "64257a16e1882c18d4eed8f4",
+    "name": "Letha Lowe",
+    "email": "lethalowe@applideck.com",
+    "phone": "+1 (817) 443-3855",
+    "address": "686 Crescent Street, Johnsonburg, Virginia, 3764"
+  },
+  {
+    "id": "64257a162e55dc0abbdfc512",
+    "name": "Pearlie Jordan",
+    "email": "pearliejordan@applideck.com",
+    "phone": "+1 (818) 450-2029",
+    "address": "941 Schermerhorn Street, Mayfair, Virgin Islands, 1249"
+  },
+  {
+    "id": "64257a160d403c39c2769103",
+    "name": "Elvira Salazar",
+    "email": "elvirasalazar@applideck.com",
+    "phone": "+1 (821) 437-2523",
+    "address": "996 Fleet Walk, Chesapeake, Louisiana, 1311"
+  },
+  {
+    "id": "64257a16ce1700433ba5af00",
+    "name": "Graham Franklin",
+    "email": "grahamfranklin@applideck.com",
+    "phone": "+1 (925) 442-3896",
+    "address": "358 Greenwood Avenue, Breinigsville, Alaska, 7427"
+  },
+  {
+    "id": "64257a166b4b0c955741d0b0",
+    "name": "Romero Fox",
+    "email": "romerofox@applideck.com",
+    "phone": "+1 (894) 505-2412",
+    "address": "993 Bergen Court, Herbster, New Hampshire, 5443"
+  },
+  {
+    "id": "64257a164903b9e1b2fe3d7c",
+    "name": "Kathrine Tyson",
+    "email": "kathrinetyson@applideck.com",
+    "phone": "+1 (851) 549-2515",
+    "address": "369 Thames Street, Mathews, Utah, 8220"
+  },
+  {
+    "id": "64257a16d9e85c5f8f3509d0",
+    "name": "Sally Mckay",
+    "email": "sallymckay@applideck.com",
+    "phone": "+1 (881) 415-2335",
+    "address": "984 Beayer Place, Caroline, Montana, 5967"
+  },
+  {
+    "id": "64257a163c2f656e38674eb4",
+    "name": "Pollard Larsen",
+    "email": "pollardlarsen@applideck.com",
+    "phone": "+1 (990) 593-3396",
+    "address": "636 Voorhies Avenue, Kansas, Tennessee, 331"
+  },
+  {
+    "id": "64257a1691082595a8a83334",
+    "name": "Ortiz Howard",
+    "email": "ortizhoward@applideck.com",
+    "phone": "+1 (810) 416-2458",
+    "address": "480 Cropsey Avenue, Wheaton, Nevada, 2453"
+  },
+  {
+    "id": "6425824cfa3554a1063cb40e",
+    "name": "Silvia Berg",
+    "email": "silviaberg@applideck.com",
+    "phone": "+1 (957) 474-3056",
+    "address": "939 Bedford Place, Hollymead, Palau, 5025"
+  },
+  {
+    "id": "6425824c33959dda383fed29",
+    "name": "Noreen Whitney",
+    "email": "noreenwhitney@applideck.com",
+    "phone": "+1 (816) 564-2381",
+    "address": "917 Lawrence Street, Echo, Arizona, 8054"
+  },
+  {
+    "id": "6425824cb1bad26319e6015c",
+    "name": "Middleton Orr",
+    "email": "middletonorr@applideck.com",
+    "phone": "+1 (856) 556-3752",
+    "address": "758 Branton Street, Bath, Connecticut, 5718"
+  },
+  {
+    "id": "6425824c1c54776704be1876",
+    "name": "Lily Bernard",
+    "email": "lilybernard@applideck.com",
+    "phone": "+1 (826) 489-2001",
+    "address": "255 Amber Street, Silkworth, Michigan, 1349"
+  },
+  {
+    "id": "6425824c7917fa0fb576fef9",
+    "name": "Ramirez Dale",
+    "email": "ramirezdale@applideck.com",
+    "phone": "+1 (840) 515-3552",
+    "address": "653 Arkansas Drive, Gouglersville, Nevada, 1101"
+  },
+  {
+    "id": "6425828c25b380ba3406c349",
+    "name": "Wise Payne",
+    "email": "wisepayne@applideck.com",
+    "phone": "+1 (814) 558-3838",
+    "address": "232 Adams Street, Sharon, Mississippi, 6148"
+  },
+  {
+    "id": "6425828c0f1cb86d92b1826a",
+    "name": "Jacqueline Justice",
+    "email": "jacquelinejustice@applideck.com",
+    "phone": "+1 (997) 544-2350",
+    "address": "988 Jackson Court, Seymour, Wisconsin, 5708"
+  },
+  {
+    "id": "6425828c9b066df232c0d2ec",
+    "name": "Jeanette Roach",
+    "email": "jeanetteroach@applideck.com",
+    "phone": "+1 (914) 497-2233",
+    "address": "552 Carlton Avenue, Davenport, Idaho, 8954"
+  },
+  {
+    "id": "6425828cc6a9b6f7dcf3557d",
+    "name": "Marietta Decker",
+    "email": "mariettadecker@applideck.com",
+    "phone": "+1 (934) 503-2906",
+    "address": "227 Times Placez, Breinigsville, Guam, 9560"
+  },
+  {
+    "id": "6425828c2b731651a56838b2",
+    "name": "English Burke",
+    "email": "englishburke@applideck.com",
+    "phone": "+1 (951) 475-2046",
+    "address": "702 Hoyts Lane, Stockdale, South Dakota, 2513"
+  },
+  {
+    "id": "6425828cc498486b63e62b2f",
+    "name": "Cooke Head",
+    "email": "cookehead@applideck.com",
+    "phone": "+1 (928) 422-2417",
+    "address": "690 Woodruff Avenue, Urie, Hawaii, 4073"
+  },
+  {
+    "id": "6425828c9996259f8aa81f5d",
+    "name": "Vega Mendoza",
+    "email": "vegamendoza@applideck.com",
+    "phone": "+1 (967) 549-3392",
+    "address": "562 Brigham Street, Coventry, Kentucky, 5274"
+  },
+  {
+    "id": "6425828c935dd1c793a88549",
+    "name": "Silva Atkinson",
+    "email": "silvaatkinson@applideck.com",
+    "phone": "+1 (986) 531-2027",
+    "address": "546 Auburn Place, Fairfield, Virginia, 7399"
+  },
+  {
+    "id": "6425828c98be6880957410ce",
+    "name": "Claudette Day",
+    "email": "claudetteday@applideck.com",
+    "phone": "+1 (887) 553-3167",
+    "address": "917 Clinton Avenue, Mooresburg, Florida, 6942"
+  },
+  {
+    "id": "6425828cb003537f37a81e5d",
+    "name": "Rosanne Neal",
+    "email": "rosanneneal@applideck.com",
+    "phone": "+1 (980) 482-2165",
+    "address": "438 Boardwalk , Osmond, Rhode Island, 9788"
+  },
+  {
+    "id": "6425828c8cfb42cb5976f356",
+    "name": "Warner Sykes",
+    "email": "warnersykes@applideck.com",
+    "phone": "+1 (928) 517-3702",
+    "address": "388 Glendale Court, Day, American Samoa, 1326"
+  },
+  {
+    "id": "6425828c9a6eb0d9dd80cb1c",
+    "name": "Pansy Hampton",
+    "email": "pansyhampton@applideck.com",
+    "phone": "+1 (884) 526-3769",
+    "address": "758 Quay Street, Mathews, West Virginia, 1661"
+  }
+
+]
+
+
+
+
 export const mockDataTeam = [
   {
     id: 1,
