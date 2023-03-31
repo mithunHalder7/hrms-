@@ -30,7 +30,6 @@ function App() {
               <Route path="/Employee" element={<EmlpoyeeList/>}/>
               <Route path="/invoices" element={<Invoices/>}/>
               <Route path="/form" element={<Form />} />
-              
             </Routes>
           </main>
         </div>

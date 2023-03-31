@@ -1,0 +1,34 @@
+[
+    {
+        "id" : "1",
+        "parent_id" : "-1",
+        "pos_name" : "CEO",
+        "dep_id" : "1",
+        "type" : "main_office",
+        "dp" : ""
+    },
+    {
+        "id" : "2",
+        "parent_id" : "1",
+        "pos_name" : "Designer",
+        "dep_id" : "1",
+        "type" : "main_office",
+        "dp" : ""
+    },
+    {
+        "id" : "3",
+        "parent_id" : "1",
+        "pos_name" : "Developer",
+        "dep_id" : "1",
+        "type" : "main_office",
+        "dp" : ""
+    },
+    {
+        "id" : "4",
+        "parent_id" : "3",
+        "pos_name" : "Jr. Developer",
+        "dep_id" : "1",
+        "type" : "main_office",
+        "dp" : ""
+    }
+]

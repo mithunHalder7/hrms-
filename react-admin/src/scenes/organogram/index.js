@@ -4,11 +4,10 @@ import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, Controls } f
 import 'reactflow/dist/base.css';
 
 // import './tailwind-config.js';
-import CustomNode from './CustomNode';
+import CustomNode from './components/CustomNode';
 import './index.css';
 
 import { Box, TextField } from "@mui/material";
-import { tokens } from "../../theme";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 
@@ -28,7 +27,6 @@ const initNodes = [
     id: '2',
     type: 'custom',
     data: { name: 'Tyler Weary', job: 'Designer', emoji: '🤓' },
-
     position: { x: -200, y: 200 },
   },
   {
@@ -54,8 +52,7 @@ const initEdges = [
 
 
 const Organogram = () => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+
   const [nodes, setNodes, onNodesChange] = useNodesState(initNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initEdges);
 
