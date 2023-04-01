@@ -60,16 +60,19 @@ export default function AssignEmployeeBtn() {
           data: { name: '', job: pName.toString(), emoji: '', department: values.বিভাগ},
           position : {x:0, y:0},
         };
-        // const obj2 ={
-        //     id: '1',
-        //     type: 'custom',
-        //     data: { name: 'Jane Doe', job: 'CEO', emoji: '😎', department:"IT" },
-        //     position : {x:0, y:0},
-        // }
+        const edge ={
+          id: values.পদের_নাম.toString(),
+          source: values.পদের_নাম.toString(),
+          target: '-1',
+          type: 'smoothstep',
+          animated: true,
+        }
 
         window.localStorage.setItem('user',JSON.stringify([obj]));
-        console.log(window.localStorage.getItem('user'));
-        // window.location.reload();
+        window.localStorage.setItem('edges', JSON.stringify([edge]));
+
+        console.log(window.localStorage.getItem('edges'));
+        window.location.reload();
         // window.localStorage.clear();
       }
     }

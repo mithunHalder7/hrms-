@@ -67,26 +67,33 @@ const getLayoutedElements = (nodes, edges, direction = 'TB') => {
 // }
 
 // const arr = makeNodes();
-const initNode = JSON.parse(window.localStorage.getItem('user'));
-
+let initNode = JSON.parse(window.localStorage.getItem('user'));
+let initEdge = JSON.parse(window.localStorage.getItem('edges'));
+console.log(initEdge);
 if(initNode === null)
 {
-  initNode = [];
+  initNode = Array.from(initNode);
+  initEdge = Array.from(initEdge);
 }
 
 const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
   initNode,
-  initialEdges
+  initEdge
 );
 
 
 
 const onNodeClick = (event, node) => {
 
-  console.log('click node', node);
+  // console.log(window.localStorage.getItem('edges'));
+
+  window.localStorage.setItem('parent', JSON.stringify(node.id));
+  // console.log(window.localStorage.getItem('parent'));
+  console.log(window.localStorage.getItem('edges'));
   // makeNodes();
   // var newObj = window.localStorage.getItem('user');
   // console.log(newObj);
+
 }
 
 const AsholOrganogram = () => {

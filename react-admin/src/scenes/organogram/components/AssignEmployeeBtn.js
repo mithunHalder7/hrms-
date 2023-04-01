@@ -52,7 +52,7 @@ export default function AssignEmployeeBtn() {
       },
       onSubmit:(values)=>{
         const pName = getPosName[values.পদের_নাম-1];
-        console.log(pName);
+        // console.log(pName);
         const obj = {
           id: values.পদের_নাম.toString(),
           type: 'custom',
@@ -63,6 +63,21 @@ export default function AssignEmployeeBtn() {
         let prevData = JSON.parse(window.localStorage.getItem('user'));
         prevData.push(obj);
 
+        let parentId = JSON.parse(window.localStorage.getItem('parent'));
+        console.log(parentId);
+        // window.localStorage.removeItem('parent');
+        let newID = "e-".concat(values.পদের_নাম);
+        const edge ={
+          id: newID,
+          source: parentId,
+          target: values.পদের_নাম.toString(),
+          type: 'smoothstep',
+          animated: true,
+        }
+        let prevEdge = JSON.parse(window.localStorage.getItem('edges'));
+        prevEdge.push(edge);
+
+        window.localStorage.setItem('edges', JSON.stringify(prevEdge));
         window.localStorage.setItem('user',JSON.stringify(prevData));
         // console.log(window.localStorage.getItem('user'));
         window.location.reload();
