@@ -20,6 +20,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "autoprefixer": "^9.8.6",
+    "browserify-fs": "^1.0.0",
     "dagre": "^0.8.5",
     "formik": "^2.2.9",
     "postcss": "^8.4.21",
@@ -30,6 +31,7 @@
     "react-router-dom": "^6.9.0",
     "react-scripts": "^5.0.1",
     "reactflow": "^11.7.0",
+    "util": "^0.12.5",
     "web-vitals": "^2.1.4",
     "yup": "^1.0.2"
   },
@@ -59,5 +61,10 @@
   },
   "devDependencies": {
     "tailwindcss": "^3.3.0"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

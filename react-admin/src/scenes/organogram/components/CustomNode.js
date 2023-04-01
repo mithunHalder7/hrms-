@@ -63,6 +63,7 @@ function CustomNode({ data }) {
         <div className="ml-2">
           <div className="text-lg font-bold text-black">{data.name}</div>
           <div className="text-gray-500">{data.job}</div>
+          <div className="text-gray-300">{data.department}</div>
         </div>
       </div>
 

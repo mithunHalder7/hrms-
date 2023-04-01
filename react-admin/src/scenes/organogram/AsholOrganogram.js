@@ -38,7 +38,7 @@ const getLayoutedElements = (nodes, edges, direction = 'TB') => {
   });
 
   dagre.layout(dagreGraph);
-
+  
   nodes.forEach((node) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     node.targetPosition = isHorizontal ? 'left' : 'top';
@@ -67,15 +67,26 @@ const getLayoutedElements = (nodes, edges, direction = 'TB') => {
 // }
 
 // const arr = makeNodes();
+const initNode = JSON.parse(window.localStorage.getItem('user'));
+
+if(initNode === null)
+{
+  initNode = [];
+}
 
 const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-  initialNodes,
+  initNode,
   initialEdges
 );
 
+
+
 const onNodeClick = (event, node) => {
+
   console.log('click node', node);
   // makeNodes();
+  // var newObj = window.localStorage.getItem('user');
+  // console.log(newObj);
 }
 
 const AsholOrganogram = () => {

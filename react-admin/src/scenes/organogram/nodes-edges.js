@@ -5,19 +5,19 @@ export const initialNodes = [
   {
     id: '1',
     type: 'custom',
-    data: { name: 'Jane Doe', job: 'CEO', emoji: '😎' },
+    data: { name: 'Jane Doe', job: 'CEO', emoji: '😎', department:"IT" },
     position,
   },
   {
     id: '2',
     type: 'custom',
-    data: { name: 'Tyler Weary', job: 'Designer', emoji: '🤓' },
+    data: { name: 'Tyler Weary', job: 'Designer', emoji: '🤓', department:"Business" },
     position,
   },
   {
     id: '3',
     type: 'custom',
-    data: { name: 'Kristi Price', job: 'Developer', emoji: '🤩' },
+    data: { name: 'Kristi Price', job: 'Developer', emoji: '🤩', department:"Main" },
     position,
   },
 ];
