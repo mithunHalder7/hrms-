@@ -9,13 +9,10 @@ import './index.css';
 
 import { Box, Grid, TextField, Typography } from "@mui/material";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
-import AssignPositionBtn from './components/AssignPositionBtn';
-import FullWidthGrid from './components/fullWidthGrid';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import styled from '@emotion/styled';
+// import ReactFlow, { addEdge, ConnectionLineType, useNodesState, useEdgesState } from 'reactflow';
+import dagre from 'dagre';
+import 'reactflow/dist/style.css';
+import {initNodes, initEdges, make_positions} from './init_data';
 
 
 
@@ -24,45 +21,7 @@ const nodeTypes = {
     custom: CustomNode,
   };
 
-
-
-const initNodes = [
-    {
-      id: '1',
-      type: 'custom',
-      data: { name: 'Jane Doe', job: 'CEO', emoji: '😎' },
-      position: { x: 0, y: 50 },
-    },
-    {
-      id: '2',
-      type: 'custom',
-      data: { name: 'Tyler Weary', job: 'Designer', emoji: '🤓' },
-      position: { x: -200, y: 200 },
-    },
-    {
-      id: '3',
-      type: 'custom',
-      data: { name: 'Kristi Price', job: 'Developer', emoji: '🤩' },
-      position: { x: 200, y: 200 },
-    },
-  ];
-  
-  const initEdges = [
-    {
-      id: 'e1-2',
-      source: '1',
-      target: '2',
-    },
-    {
-      id: 'e1-3',
-      source: '1',
-      target: '3',
-    },
-  ];
-
-
-
-
+// const {newNodes} = make_positions(initNodes);
 
 const OrganogramScene=()=>{
 

@@ -6,7 +6,7 @@ import Header from "../../components/Header";
 import positionedData from './all_data/positioned.json';
 import DefaultScreen from './DefaultScreen';
 import OrganogramScene from './OrganogramScreen';
-
+import AsholOrganogram from './AsholOrganogram';
 
 
 const Organogram = () => {
@@ -20,7 +20,8 @@ const Organogram = () => {
   else 
   {
     return (
-      <OrganogramScene/>
+      // <OrganogramScene/>
+      <AsholOrganogram/>
     );
 
   }

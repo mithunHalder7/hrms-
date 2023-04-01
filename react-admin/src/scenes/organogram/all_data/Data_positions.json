@@ -1,34 +1,65 @@
 [
-    {
-        "id" : "1",
-        "parent_id" : "-1",
-        "pos_name" : "CEO",
-        "dep_id" : "1",
-        "type" : "main_office",
-        "dp" : ""
-    },
-    {
-        "id" : "2",
-        "parent_id" : "1",
-        "pos_name" : "Designer",
-        "dep_id" : "1",
-        "type" : "main_office",
-        "dp" : ""
-    },
-    {
-        "id" : "3",
-        "parent_id" : "1",
-        "pos_name" : "Developer",
-        "dep_id" : "1",
-        "type" : "main_office",
-        "dp" : ""
-    },
-    {
-        "id" : "4",
-        "parent_id" : "3",
-        "pos_name" : "Jr. Developer",
-        "dep_id" : "1",
-        "type" : "main_office",
-        "dp" : ""
-    }
+	{
+		"department": {
+			"id": 1,
+			"name": "মূল অফিস"
+		},
+		"id": 1,
+		"name": "এমডি",
+		"parent_id": -1
+	},
+	{
+		"department": {
+			"id": 4,
+			"name": "তথ্যপ্রযুক্তি বিভাগ"
+		},
+		"id": 2,
+		"name": "সিনিয়র আইটি অফিসার",
+		"parent_id": 1
+	},
+	{
+		"department": {
+			"id": 4,
+			"name": "তথ্যপ্রযুক্তি বিভাগ"
+		},
+		"id": 3,
+		"name": "আইটি অফিসার",
+		"parent_id": 2
+	},
+	{
+		"department": {
+			"id": 3,
+			"name": "হিসাবরক্ষণ বিভাগ"
+		},
+		"id": 4,
+		"name": "সিনিয়র একাউন্টেন্ট",
+		"parent_id": 1
+	},
+	{
+		"department": {
+			"id": 3,
+			"name": "হিসাবরক্ষণ বিভাগ"
+		},
+		"id": 5,
+		"name": "একাউন্টেন্ট",
+		"parent_id": 4
+	},
+	{
+		"department": {
+			"id": 2,
+			"name": "অ্যাডমিন বিভাগ"
+		},
+		"id": 6,
+		"name": "এইচআর হেড",
+		"parent_id": 1
+	},
+	{
+		"department": {
+			"id": 2,
+			"name": "অ্যাডমিন বিভাগ"
+		},
+		"id": 7,
+		"name": "জুনিয়র এইচআর অফিসার",
+		"parent_id": 6
+	}
 ]
