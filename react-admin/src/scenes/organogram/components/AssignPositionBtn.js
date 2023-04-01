@@ -60,6 +60,7 @@ export default function AssignEmployeeBtn() {
     {
       initialValues: {
         পদের_নাম: "",
+        বিভাগ : "",
       },
       onSubmit:(values)=>{
         console.log(values);
@@ -120,16 +121,16 @@ export default function AssignEmployeeBtn() {
       >
         <DialogContent>
           <Box sx={{ minWidth: 120 }}>
-            <form onSubmit={formik.onSubmit}>
+            <form onSubmit={formik.handleSubmit}>
 
             <FormControl fullWidth>
               <InputLabel id="post_name">পদের নাম</InputLabel>
               <Select
                 labelId="post_name"
                 id="post_name"
-                value={post}
+                value={formik.values.পদের_নাম}
                 label="পদের নাম"
-                onChange={handleChange1}
+                onChange={formik.handleChange}
                 name= "পদের_নাম"
               >
                 {DataPost.map((info)=> <MenuItem value={info.id}>{info.name}</MenuItem>)}
@@ -141,16 +142,16 @@ export default function AssignEmployeeBtn() {
               <Select
                 labelId="dept"
                 id="dept"
-                value={dept}
+                value={formik.values.বিভাগ}
                 label="বিভাগ"
-                onChange={handleChange2}
                 name= "বিভাগ"
+                onChange={formik.handleChange}
               >
                 {DataPost.map((info)=> <MenuItem value={info.department.id}>{info.department.name}</MenuItem>)}
               </Select>
 
               <ButtonGroup variant="contained" aria-label="button group" sx={{m : "10px"}}>
-              <Button variant="contained" color='success'>প্রয়োগ</Button>
+              <Button variant="contained" color='success' type='submit'>প্রয়োগ</Button>
               <Button variant="contained" color='error' onClick={handleClose} sx={{ml:"auto"}}>বাতিল</Button>
               </ButtonGroup>
             </FormControl>
