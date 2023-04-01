@@ -11,6 +11,7 @@ import { Box } from '@mui/material';
 import Header from '../../components/Header.jsx';
 import DataPosition from './all_data/Data_positions.json';
 import { Controls } from 'reactflow';
+import useFetch from './useFetch.js';
 
 const nodeTypes = {
     custom: CustomNode,
@@ -26,6 +27,10 @@ const nodeWidth = 180;
 const nodeHeight = 105;
 
 const getLayoutedElements = (nodes, edges, direction = 'TB') => {
+  if(nodes === null || edges === null)
+  {
+    return null;
+  }
   const isHorizontal = direction === 'LR';
   dagreGraph.setGraph({ rankdir: direction });
 
@@ -67,19 +72,23 @@ const getLayoutedElements = (nodes, edges, direction = 'TB') => {
 // }
 
 // const arr = makeNodes();
-let initNode = JSON.parse(window.localStorage.getItem('user'));
-let initEdge = JSON.parse(window.localStorage.getItem('edges'));
-console.log(initEdge);
-if(initNode === null)
-{
-  initNode = Array.from(initNode);
-  initEdge = Array.from(initEdge);
-}
+// let initNode = JSON.parse(window.localStorage.getItem('user'));
+// let initEdge = JSON.parse(window.localStorage.getItem('edges'));
+// console.log(initEdge);
+// if(initNode === null)
+// {
+//   initNode = Array.from(initNode);
+//   initEdge = Array.from(initEdge);
+// }
 
-const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
-  initNode,
-  initEdge
-);
+
+
+// const obj = {
+//           id: values.পদের_নাম.toString(),
+//           type: 'custom',
+//           data: { name: '', job: pName.toString(), emoji: '', department: values.বিভাগ },
+//           position: { x: 0, y: 0 },
+//         };
 
 
 
@@ -89,14 +98,31 @@ const onNodeClick = (event, node) => {
 
   window.localStorage.setItem('parent', JSON.stringify(node.id));
   // console.log(window.localStorage.getItem('parent'));
-  console.log(window.localStorage.getItem('edges'));
+  // console.log(window.localStorage.getItem('edges'));
   // makeNodes();
   // var newObj = window.localStorage.getItem('user');
   // console.log(newObj);
 
 }
 
+
+const initNode = JSON.parse(window.localStorage.getItem('nodes'));
+const initEdge = JSON.parse(window.localStorage.getItem('edges'));
+
+console.log(initNode);
+
+
+
+
 const AsholOrganogram = () => {
+  
+  // console.log(initEdges);
+
+  const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
+    initNode,
+    initEdge
+  );
+
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
 

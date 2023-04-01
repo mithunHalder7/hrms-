@@ -7,7 +7,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Paper, { PaperProps } from '@mui/material/Paper';
 import Draggable from 'react-draggable';
-import TextField from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -15,6 +14,10 @@ import Select from '@mui/material/Select';
 import DataPost from '../all_data/Data_positions.json';
 import PosData from '../all_data/positioned.json';
 import { callbackify } from 'util';
+import useFetch from '../useFetch';
+import { useEffect, useState } from 'react';
+import TextField  from '@mui/material/TextField';
+import usePost from '../usePost';
 
 
 function PaperComponent(props: PaperProps) {
@@ -30,12 +33,11 @@ function PaperComponent(props: PaperProps) {
 
 
 
-const uniqueDep = [...new Set(DataPost.map((items)=> items.department.name))];
-// console.log(uniqueDep);
-
-const getPosName = [...new Set(DataPost.map((items)=> items.name))];
 
 export default function AssignEmployeeBtn() {
+
+  let departments = useFetch("http://localhost:5000/department");
+
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -49,30 +51,47 @@ export default function AssignEmployeeBtn() {
     {
       initialValues: {
         পদের_নাম: "",
-        বিভাগ : "",
+        বিভাগ: "",
       },
-      onSubmit:(values)=>{
-        const pName = getPosName[values.পদের_নাম-1];
-        console.log(pName);
+      onSubmit: (values) => {
+        // console.log(values.পদের_নাম);
         const obj = {
-          id: values.পদের_নাম.toString(),
-          type: 'custom',
-          data: { name: '', job: pName.toString(), emoji: '', department: values.বিভাগ},
-          position : {x:0, y:0},
+          name: values.পদের_নাম,
+          department_id: values.বিভাগ.toString(),
+          parent_id: "-1",
         };
-        const edge ={
-          id: values.পদের_নাম.toString(),
-          source: values.পদের_নাম.toString(),
-          target: '-1',
-          type: 'smoothstep',
-          animated: true,
+        
+        let options = {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json"
+          },
+          body: JSON.stringify(obj),
         }
+        fetch("http://localhost:5000/office_post", options)
+          .then((response) => response.json())
+          .then((json) => console.log(json));
 
-        window.localStorage.setItem('user',JSON.stringify([obj]));
-        window.localStorage.setItem('edges', JSON.stringify([edge]));
+        // console.log(pName);
+        // const obj = {
+        //   id: values.পদের_নাম.toString(),
+        //   type: 'custom',
+        //   data: { name: '', job: pName.toString(), emoji: '', department: values.বিভাগ },
+        //   position: { x: 0, y: 0 },
+        // };
+        // const edge = {
+        //   id: values.পদের_নাম.toString(),
+        //   source: values.পদের_নাম.toString(),
+        //   target: '-1',
+        //   type: 'smoothstep',
+        //   animated: true,
+        // }
 
-        console.log(window.localStorage.getItem('edges'));
-        window.location.reload();
+        window.localStorage.setItem('user', JSON.stringify([{}]));
+        // window.localStorage.setItem('edges', JSON.stringify([edge]));
+
+        // console.log(window.localStorage.getItem('edges'));
+        // window.location.reload();
         // window.localStorage.clear();
       }
     }
@@ -119,42 +138,34 @@ export default function AssignEmployeeBtn() {
         }}
       >
         <DialogContent>
-          <Box sx={{ minWidth: 120 }}>
+          <Box sx={{ minWidth: 120 }} autoComplete="off">
             <form onSubmit={formik.handleSubmit}>
 
-            <FormControl fullWidth>
-              <InputLabel id="post_name">পদের নাম</InputLabel>
-              <Select
-                labelId="post_name"
-                id="post_name"
-                value={formik.values.পদের_নাম}
-                label="পদের নাম"
-                onChange={formik.handleChange}
-                name= "পদের_নাম"
-              >
-                {DataPost.map((info)=> <MenuItem value={info.id}>{info.name}</MenuItem>)}
-              </Select>
+              <FormControl fullWidth>
+
+                <TextField id="outlined-basic" label="পদের নাম" variant="outlined" value={formik.values.পদের_নাম} onChange={formik.handleChange} name="পদের_নাম"/>
+
               </FormControl>
 
-            <FormControl fullWidth>
-            <InputLabel id="dept">বিভাগ</InputLabel>
-              <Select
-                labelId="dept"
-                id="dept"
-                value={formik.values.বিভাগ}
-                label="বিভাগ"
-                name= "বিভাগ"
-                onChange={formik.handleChange}
-              >
-                {uniqueDep.map((info)=> <MenuItem value={info}>{info}</MenuItem>)}
-              </Select>
+              <FormControl fullWidth>
+                <InputLabel id="dept">বিভাগ</InputLabel>
+                <Select
+                  labelId="dept"
+                  id="dept"
+                  value={formik.values.বিভাগ}
+                  label="বিভাগ"
+                  name="বিভাগ"
+                  onChange={formik.handleChange}
+                >
+                  {departments.map((info) => <MenuItem value={info.id}>{info.name}</MenuItem>)}
+                </Select>
               </FormControl>
               <FormControl>
-              <ButtonGroup variant="contained" aria-label="button group" sx={{m : "10px"}}>
-              <Button variant="contained" color='success' type='submit'>প্রয়োগ</Button>
-              <Button variant="contained" color='error' onClick={handleClose} sx={{ml:"auto"}}>বাতিল</Button>
-              </ButtonGroup>
-            </FormControl>
+                <ButtonGroup variant="contained" aria-label="button group" sx={{ m: "10px" }}>
+                  <Button variant="contained" color='success' type='submit'>প্রয়োগ</Button>
+                  <Button variant="contained" color='error' onClick={handleClose} sx={{ ml: "auto" }}>বাতিল</Button>
+                </ButtonGroup>
+              </FormControl>
             </form>
           </Box>
         </DialogContent>

@@ -7,13 +7,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogContent from '@mui/material/DialogContent';
 import Paper, { PaperProps } from '@mui/material/Paper';
 import Draggable from 'react-draggable';
-import TextField from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import DataPost from '../all_data/Data_positions.json';
-
+import TextField  from '@mui/material/TextField';
+import useFetch from '../useFetch';
+import axios from 'axios';
 
 function PaperComponent(props: PaperProps) {
   return (
@@ -33,6 +34,8 @@ const getPosName = [...new Set(DataPost.map((items)=> items.name))];
 
 
 export default function AssignEmployeeBtn() {
+
+  let departments = useFetch("http://localhost:5000/department");
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,7 +46,6 @@ export default function AssignEmployeeBtn() {
   };
 
 
-
   const formik = useFormik(
     {
       initialValues: {
@@ -51,36 +53,34 @@ export default function AssignEmployeeBtn() {
         বিভাগ : "",
       },
       onSubmit:(values)=>{
-        const pName = getPosName[values.পদের_নাম-1];
-        // console.log(pName);
-        const obj = {
-          id: values.পদের_নাম.toString(),
-          type: 'custom',
-          data: { name: '', job: pName.toString(), emoji: '', department: values.বিভাগ},
-          position : {},
-        };
-        
-        let prevData = JSON.parse(window.localStorage.getItem('user'));
-        prevData.push(obj);
-
         let parentId = JSON.parse(window.localStorage.getItem('parent'));
-        console.log(parentId);
-        // window.localStorage.removeItem('parent');
-        let newID = "e-".concat(values.পদের_নাম);
-        const edge ={
-          id: newID,
-          source: parentId,
-          target: values.পদের_নাম.toString(),
-          type: 'smoothstep',
-          animated: true,
-        }
-        let prevEdge = JSON.parse(window.localStorage.getItem('edges'));
-        prevEdge.push(edge);
-
-        window.localStorage.setItem('edges', JSON.stringify(prevEdge));
-        window.localStorage.setItem('user',JSON.stringify(prevData));
-        // console.log(window.localStorage.getItem('user'));
+        const obj = {
+          "department_id": values.বিভাগ,
+          "parent_id": parseInt(parentId),
+          "name": values.পদের_নাম,
+        };
+        // console.log(JSON.stringify(obj));
+        // const handleSub = async(e)=>
+        // {
+        //   e.preventDefault();
+        //   try{
+        //     const resp = await axios.post('http://localhost:5000/office_post', JSON.stringify(obj));
+        //     console.log(resp.data);
+        //   }catch(error){
+        //     console.log(error.response)
+        //   }
+        // };
+        // handleSub();
+        axios.post('http://localhost:5000/office_post', obj)
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+        console.log(window.localStorage.getItem('user'));
         window.location.reload();
+        window.alert("Added successfully!");
         // window.localStorage.clear();
       }
     }
@@ -148,17 +148,9 @@ export default function AssignEmployeeBtn() {
             <form onSubmit={formik.handleSubmit}>
 
             <FormControl fullWidth>
-              <InputLabel id="post_name">পদের নাম</InputLabel>
-              <Select
-                labelId="post_name"
-                id="post_name"
-                value={formik.values.পদের_নাম}
-                label="পদের নাম"
-                onChange={formik.handleChange}
-                name= "পদের_নাম"
-              >
-                {DataPost.map((info)=> <MenuItem value={info.id}>{info.name}</MenuItem>)}
-              </Select>
+
+                <TextField id="outlined-basic" label="পদের নাম" variant="outlined" value={formik.values.পদের_নাম} onChange={formik.handleChange} name="পদের_নাম"/>
+
               </FormControl>
 
             <FormControl fullWidth>
@@ -171,7 +163,7 @@ export default function AssignEmployeeBtn() {
                 name= "বিভাগ"
                 onChange={formik.handleChange}
               >
-                {uniqueDep.map((info)=> <MenuItem value={info}>{info}</MenuItem>)}
+                {departments.map((info)=> <MenuItem value={info.id}>{info.name}</MenuItem>)}
               </Select>
               </FormControl>
               <FormControl>

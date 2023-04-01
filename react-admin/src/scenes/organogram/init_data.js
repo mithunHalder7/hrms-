@@ -1,5 +1,6 @@
 const position = {x:0, y:0};
 
+
 export const initNodes = [
     {
       id: '1',
