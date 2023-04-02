@@ -80,7 +80,7 @@ export default function AssignEmployeeBtn() {
         });
         console.log(window.localStorage.getItem('user'));
         window.location.reload();
-        window.alert("Added successfully!");
+        // window.alert("Added successfully!");
         // window.localStorage.clear();
       }
     }

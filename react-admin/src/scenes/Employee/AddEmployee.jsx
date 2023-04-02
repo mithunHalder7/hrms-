@@ -18,6 +18,10 @@ import Header from "../../components/Header";
 import { Box } from "@mui/material";
 import axios from "axios";
 
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
 const initialState = {
   address_perm: "",
   dob: null,
@@ -29,20 +33,7 @@ const initialState = {
   user_name: "",
 };
 
-
-
-const EditForm = ({ row, props,onClose }) => {
-//   const [name, setName] = useState(props.user_name);
-//   const [phone, setPhone] = useState(props.phone);
-
-  
-  //const id = row.id;
-
-  const  {address_perm,dob,address_curr,marital_status_id,phone,name,religion_id,user_name,id} = row;
-
-  const  newRow = {address_perm,dob,address_curr,marital_status_id,phone,name,religion_id,user_name};
-  
-
+const ModalForm = (props) => {
   const [religions, setReligions] = useState([]);
   const [martualStatus, setMaritualStatus] = useState([]);
 
@@ -59,9 +50,11 @@ const EditForm = ({ row, props,onClose }) => {
     });
   }, []);
 
-  
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const [formData, setFormData] = useState(newRow);
+  const [formData, setFormData] = useState(initialState);
   const [errors, setErrors] = useState({});
 
   const handleUserNameChange = (e) => {
@@ -123,16 +116,13 @@ const EditForm = ({ row, props,onClose }) => {
   
 
     const handleSubmit = (e) => {
-      console.log(row);
-      console.log(formData);
-      onClose();
       e.preventDefault();
-      axios.put('http://localhost:5000/employee/${row.id}', formData)
+      axios.post('http://localhost:5000/employee', formData)
       .then(response => console.log(response))
       .catch(error => console.error(error));
       setFormData(initialState);
-
-      //props.onShowDataAfterEdit();
+      props.onShowDataAfterAdd();
+      // window.location.reload();
     };
 
   // const handleSubmit = (e) => {
@@ -176,11 +166,29 @@ const EditForm = ({ row, props,onClose }) => {
 
   return (
     <Box>
+      <Box m={1} display="flex" justifyContent="flex-end" alignItem="flex-end">
+        <p style={{ color: "black", padding: "10px" }}>এমপ্লয়ী যুক্ত করুন</p>
+
+        <IconButton
+          color="success"
+          aria-label="add to shopping cart"
+          onClick={handleOpen}
+        >
+          <AddIcon />
+        </IconButton>
+      </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
         <Box
           sx={{
             bgcolor: "white",
             width: "75%",
-            height:"100%",
+            height: "100%",
             margin: "auto",
             boxShadow: 3,
             borderRadius: 2,
@@ -190,7 +198,7 @@ const EditForm = ({ row, props,onClose }) => {
             padding: "20px",
           }}
         >
-          <Header sx={{ color: "success" }} title="কর্মকর্তা/কর্মচারীর তথ্য পরিবর্তন " />
+          <Header sx={{ color: "success" }} title="কর্মকর্তা/কর্মচারী সংযোজন" />
 
           <form onSubmit={handleSubmit}>
             <Box
@@ -319,15 +327,15 @@ const EditForm = ({ row, props,onClose }) => {
             <Box display="flex" justifyContent="end">
               <Box mt="20px">
                 <Button type="submit" color="secondary" variant="contained">
-                তথ্য হালনাগাদ 
+                  সংযোজন
                 </Button>
               </Box>
             </Box>
           </form>
         </Box>
-      
+      </Modal>
     </Box>
   );
 };
 
-export default EditForm;
+export default ModalForm;
