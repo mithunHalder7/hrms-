@@ -31,7 +31,7 @@ function LoginPage() {
 
     if (password === "1234") {
 
-      window.localStorage.setItem('usr_active', password);
+      window.localStorage.setItem('usr_active', JSON.stringify(password));
       setShowModal(true);
       setTimeout(() => setShowModal(false), 2000);
       setLoggedIn(true);
@@ -42,7 +42,7 @@ function LoginPage() {
 
   let active_usr = JSON.parse(window.localStorage.getItem('usr_active'));
 
-  if (active_usr == "1234") {
+  if (active_usr == "1234" | loggedIn) {
     return (
       <div className="app">
         <Sidebar />
