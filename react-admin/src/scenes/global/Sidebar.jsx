@@ -134,7 +134,7 @@ const Sidebar = () => {
               />
               <Item
                 title="আবেদনকৃত ছুটির স্ট্যাটাস"
-                to="/dashboard"
+                to="/LeaveStatus"
                 icon={<FactCheckOutlinedIcon/>}
                 selected={selected}
                 setSelected={setSelected}

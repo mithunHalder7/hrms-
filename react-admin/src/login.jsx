@@ -11,6 +11,9 @@ import EmlpoyeeList from "./scenes/Employee";
 import { Routes, Route } from "react-router-dom";
 import LeaveApply from "./scenes/LeaveApply";
 import LeaveRecord from "./scenes/LeaveRecord";
+import LeaveStatus from "./scenes/LeaveStatus";
+
+
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -68,6 +71,7 @@ function LoginPage() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/LeaveApply" element={<LeaveApply />} />
             <Route path="/LeaveRecord" element={<LeaveRecord />} />
+            <Route path="/LeaveStatus" element={<LeaveStatus />} />
             {/* <Route path="/organogram" element={<Organogram />} /> */}
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
             
