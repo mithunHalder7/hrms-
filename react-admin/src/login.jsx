@@ -10,6 +10,7 @@ import Organogram from "./scenes/organogram";
 import EmlpoyeeList from "./scenes/Employee";
 import { Routes, Route } from "react-router-dom";
 
+
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +30,7 @@ function LoginPage() {
     // send the username and password to the server for authentication
 
     if (password === "1234") {
-      sessionStorage.setItem("usr_active", password);
+      sessionStorage.setItem('usr_active', password);
       setShowModal(true);
       setTimeout(() => setShowModal(false), 2000);
       setLoggedIn(true);
@@ -38,8 +39,8 @@ function LoginPage() {
     }
   }
 
-  let active_usr = sessionStorage["usr_active"];
-  if ((active_usr == "1234") | loggedIn) {
+  let active_usr = sessionStorage['usr_active'];
+  if (active_usr == "1234" | loggedIn) {
     return (
       <div className="app">
         <Sidebar />
@@ -66,6 +67,7 @@ function LoginPage() {
             <Route path="/dashboard" element={<Dashboard />} />
             {/* <Route path="/organogram" element={<Organogram />} /> */}
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
+            
           </Routes>
         </main>
       </div>
@@ -76,6 +78,7 @@ function LoginPage() {
     <div className="app">
       <LoggedInSidebar />
       <main className="content">
+        
         <Box
           sx={{
             display: "flex",
@@ -83,9 +86,7 @@ function LoginPage() {
             justifyContent: "center",
           }}
         >
-          <Typography variant="h3" sx={{ p: 5 }}>
-            লগ-ইন
-          </Typography>
+          <Typography variant="h3">লগ-ইন</Typography>
         </Box>
         <Box
           sx={{
