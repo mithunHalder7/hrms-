@@ -17,14 +17,11 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 const Topbar = (props) => {
-  const [current_password, setCurrentPassword] = useState("");
-  const [new_password, setNewPassword] = useState("");
-  const [retype_new_password, setRetypePassword] = useState("");
-
   const [openDialog, setOpenDialog] = useState(false);
+
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -33,78 +30,43 @@ const Topbar = (props) => {
     setAnchorEl(null);
   };
 
-  //For logout Menubar
   const logOutHandle = () => {
     handleClose();
     window.location.reload();
-    sessionStorage.setItem("usr_active", "logout");
+    sessionStorage.setItem('usr_active', "logout")
   };
 
-  //For password change menubar
   const handlePasswordChange = () => {
     setOpenDialog(true);
   };
 
-  // for closing dialog
   const handleCloseDialog = () => {
     setOpenDialog(false);
   };
-
-  //for password changef form submission
-  const handlePasswordChangeFormSubmit = (e) =>{
-    e.preventDefault();
-    setNewPassword('');
-    setRetypePassword('');
-    setCurrentPassword('');
-
-    const PasswordData = {
-       new_password,
-       retype_new_password,
-    };
-
-    console.log(PasswordData);
-
-  }
 
   return (
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Dialog open={openDialog} onClose={handleClose}>
-        <form onSubmit={handlePasswordChangeFormSubmit}>
-          <DialogTitle>পাসওয়ার্ড পরিবর্তন</DialogTitle>
-          <DialogContent>
-            <TextField
-              variant="standard"
-              label="বর্তমান পাসওয়ার্ড"
-              name="current_password"
-              value={current_password}
-              onChange={(e) => setCurrentPassword(e.target.value)}
-              fullWidth
-              required
-            />
-            <TextField
-              variant="standard"
-              label="নতুন পাসওয়ার্ড ইনপুট"
-              name="new_password"
-              value={new_password}
-              onChange={(e) => setNewPassword(e.target.value)}
-              fullWidth
-              required
-            />
-            <TextField
-              variant="standard"
-              label="পুনরায় নতুন পাসওয়ার্ড ইনপুট"
-              name="retype_new_password"
-              value={retype_new_password}
-              onChange={(e) => setRetypePassword(e.target.value)}
-              fullWidth
-              required
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button type="submit" onClick={handleCloseDialog}>পরিবর্তন</Button>
-          </DialogActions>
-        </form>
+        <DialogTitle>Subscribe</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="standard"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog}>Change</Button>
+        </DialogActions>
       </Dialog>
       <Box
         display="flex"
