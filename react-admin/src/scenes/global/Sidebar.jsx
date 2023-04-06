@@ -127,7 +127,7 @@ const Sidebar = () => {
               />
               <Item
                 title="ছুটির রেকর্ড"
-                to="/dashboard"
+                to="/LeaveRecord"
                 icon={<HistoryOutlinedIcon/>}
                 selected={selected}
                 setSelected={setSelected}
