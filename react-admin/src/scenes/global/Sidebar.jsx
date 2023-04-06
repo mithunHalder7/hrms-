@@ -6,20 +6,10 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import SVGComponent from "./SVGComponent";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
-import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import { BorderAll } from "@mui/icons-material";
-import ListItem from "@mui/material/ListItem";
-import MediationOutlinedIcon from "@mui/icons-material/MediationOutlined";
+import TreeView from '@mui/lab/TreeView';
+import TreeItem from '@mui/lab/TreeItem';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -84,34 +74,43 @@ const Sidebar = () => {
                   mt: "25px",
                 }}
               >
-              <SVGComponent />
+                <SVGComponent />
               </Box>
             }
           </MenuItem>
 
           <Box >
-            <Item
-              title="ড্যাশবোর্ড"
-              to="/dashboard"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            {/* <Item
+            <TreeView
+              aria-label="file system navigator"
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+            >
+              <TreeItem nodeId="1" label="Applications">
+                <TreeItem nodeId="2" label="Calendar" />
+              </TreeItem>
+              <Item
+                title="ড্যাশবোর্ড"
+                to="/dashboard"
+                icon={<HomeOutlinedIcon />}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              {/* <Item
               title="অরগানোগ্রাম"
               to="/organogram"
               icon={<MediationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             /> */}
-            {/* <Item
+              {/* <Item
               title="কর্মকর্তা/কর্মচারী"
               to="/Employee"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             /> */}
-            {/* <Item
+              {/* <Item
               title="Invoices Balances"
               to="/invoices"
               icon={<ReceiptOutlinedIcon />}
@@ -171,6 +170,7 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             /> */}
+            </TreeView>
           </Box>
         </Menu>
       </ProSidebar>

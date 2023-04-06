@@ -33,7 +33,7 @@ const Topbar = (props) => {
   const logOutHandle = () => {
     handleClose();
     window.location.reload();
-    window.localStorage.setItem('usr_active', JSON.stringify("logout"));
+    sessionStorage.setItem('usr_active', "logout")
   };
 
   const handlePasswordChange = () => {

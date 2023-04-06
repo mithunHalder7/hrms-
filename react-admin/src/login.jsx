@@ -30,8 +30,7 @@ function LoginPage() {
     // send the username and password to the server for authentication
 
     if (password === "1234") {
-
-      window.localStorage.setItem('usr_active', JSON.stringify(password));
+      sessionStorage.setItem('usr_active', password);
       setShowModal(true);
       setTimeout(() => setShowModal(false), 2000);
       setLoggedIn(true);
@@ -40,8 +39,7 @@ function LoginPage() {
     }
   }
 
-  let active_usr = JSON.parse(window.localStorage.getItem('usr_active'));
-
+  let active_usr = sessionStorage['usr_active'];
   if (active_usr == "1234" | loggedIn) {
     return (
       <div className="app">
