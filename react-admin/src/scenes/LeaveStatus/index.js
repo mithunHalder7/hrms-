@@ -31,8 +31,8 @@ export default function LeaveStatus() {
                 <Header
                     title="আবেদনকৃত ছুটির স্ট্যাটাস"
                 />
-                <TableContainer component={Paper} sx={{ maxWidth: 550, m:5}}>
-                    <Table sx={{ maxWidth: 550 }} aria-label="simple table">
+                <TableContainer component={Paper} sx={{ minWidth: 550, m:5}}>
+                    <Table sx={{ minWidth: 550 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
                                 <TableCell>ছুটির ধরন</TableCell>

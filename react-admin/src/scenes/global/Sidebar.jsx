@@ -49,6 +49,7 @@ const Sidebar = () => {
           background: "#F7FBFC",
           boxShadow: "0px 4px 35px -3px rgba(0, 0, 0, 0.25)",
           borderRadius: "55px",
+          width:"280px"
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -56,6 +57,7 @@ const Sidebar = () => {
         "& .pro-inner-item": {
           backgroundColor: "#F7FBFC",
           borderRadius: "60px",
+          textAlign:"center"
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -81,7 +83,7 @@ const Sidebar = () => {
           color: "#868dfb !important",
           background: "none",
 
-        }
+        },
       }}
     >
       <ProSidebar>
@@ -141,7 +143,7 @@ const Sidebar = () => {
               />
               <Item
                 title="ছুটি অনুমোদন/প্রত্যাখ্যান"
-                to="/dashboard"
+                to="/LeaveApproval"
                 icon={<RemoveDoneSharpIcon/>}
                 selected={selected}
                 setSelected={setSelected}

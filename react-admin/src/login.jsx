@@ -12,7 +12,7 @@ import { Routes, Route } from "react-router-dom";
 import LeaveApply from "./scenes/LeaveApply";
 import LeaveRecord from "./scenes/LeaveRecord";
 import LeaveStatus from "./scenes/LeaveStatus";
-
+import LeaveApproval from "./scenes/LeaveApproval";
 
 
 function LoginPage() {
@@ -72,6 +72,7 @@ function LoginPage() {
             <Route path="/LeaveApply" element={<LeaveApply />} />
             <Route path="/LeaveRecord" element={<LeaveRecord />} />
             <Route path="/LeaveStatus" element={<LeaveStatus />} />
+            <Route path="/LeaveApproval" element={<LeaveApproval/>} />
             {/* <Route path="/organogram" element={<Organogram />} /> */}
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
             
