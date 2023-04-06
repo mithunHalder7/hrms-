@@ -4,6 +4,7 @@ import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
+import SVGComponent from "./SVGComponent";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -17,7 +18,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { BorderAll } from "@mui/icons-material";
-import MediationOutlinedIcon from '@mui/icons-material/MediationOutlined';
+import MediationOutlinedIcon from "@mui/icons-material/MediationOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -29,8 +30,8 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
         color: colors.grey[100],
       }}
       onClick={() => setSelected(title)}
-      icon={icon}>
-
+      icon={icon}
+    >
       <Typography>{title}</Typography>
       <Link to={to} />
     </MenuItem>
@@ -52,16 +53,14 @@ const Sidebar = () => {
           top: "14px",
           background: "#F7FBFC",
           boxShadow: "0px 4px 35px -3px rgba(0, 0, 0, 0.25)",
-          borderRadius: "55px"
-          
+          borderRadius: "55px",
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
         },
         "& .pro-inner-item": {
-          
-          backgroundColor:"#F7FBFC",
-          borderRadius: "60px"
+          backgroundColor: "#F7FBFC",
+          borderRadius: "60px",
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -73,9 +72,8 @@ const Sidebar = () => {
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu>
-          {/* LOGO AND MENU ICON */}
           <MenuItem>
-            {(
+            {/* {(
               <Box
                 display="flex"
                 justifyContent="space-between"
@@ -83,19 +81,31 @@ const Sidebar = () => {
                 ml="30px"
                 mt="25px"
               >
-                <Typography variant="h3" color={colors.redAccent}>
+                <Typography variant="h4" color={colors.redAccent}>
                   HRMS++
                 </Typography>
               </Box>
-            )}
-          </MenuItem>
+            )} */}
 
-          
+            {
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  ml: "30px",
+                  mt: "25px",
+                }}
+              >
+                <SVGComponent />
+              </Box>
+            }
+          </MenuItem>
 
           <Box >
             <Item
               title="ড্যাশবোর্ড"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
