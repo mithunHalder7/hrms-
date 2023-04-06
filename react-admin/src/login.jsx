@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Admin_Sidebar from "./scenes/global/Admin_Sidebar";
 import Sidebar from "./scenes/global/Sidebar";
 import Topbar from "./scenes/global/Topbar";
 import { Typography, Button, Box, TextField, Modal } from "@mui/material";
@@ -63,8 +64,9 @@ function LoginPage() {
           )}
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/organogram" element={<Organogram />} />
-            <Route path="/Employee" element={<EmlpoyeeList />} />
+            {/* <Route path="/organogram" element={<Organogram />} /> */}
+            {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
+            
           </Routes>
         </main>
       </div>
@@ -75,7 +77,7 @@ function LoginPage() {
     <div className="app">
       <LoggedInSidebar />
       <main className="content">
-        <Topbar />
+        
         <Box
           sx={{
             display: "flex",

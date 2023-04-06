@@ -38,7 +38,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   );
 };
 
-const Sidebar = () => {
+const Admin_Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -112,20 +112,20 @@ const Sidebar = () => {
             />
 
             
-            {/* <Item
+            <Item
               title="অরগানোগ্রাম"
               to="/organogram"
               icon={<MediationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
-            {/* <Item
+            />
+            <Item
               title="কর্মকর্তা/কর্মচারী"
               to="/Employee"
               icon={<ContactsOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
             {/* <Item
               title="Invoices Balances"
               to="/invoices"
@@ -193,4 +193,4 @@ const Sidebar = () => {
   );
 };
 
-export default Sidebar;
+export default Admin_Sidebar;
