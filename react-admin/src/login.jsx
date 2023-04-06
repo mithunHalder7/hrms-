@@ -10,6 +10,7 @@ import Organogram from "./scenes/organogram";
 import EmlpoyeeList from "./scenes/Employee";
 import { Routes, Route } from "react-router-dom";
 
+
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,9 +29,9 @@ function LoginPage() {
     event.preventDefault();
     // send the username and password to the server for authentication
 
-    
-
     if (password === "1234") {
+
+      window.localStorage.setItem('usr_active', password);
       setShowModal(true);
       setTimeout(() => setShowModal(false), 2000);
       setLoggedIn(true);
@@ -39,7 +40,9 @@ function LoginPage() {
     }
   }
 
-  if (loggedIn) {
+  let active_usr = JSON.parse(window.localStorage.getItem('usr_active'));
+
+  if (active_usr == "1234") {
     return (
       <div className="app">
         <Sidebar />

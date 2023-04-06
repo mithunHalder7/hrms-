@@ -18,6 +18,7 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { BorderAll } from "@mui/icons-material";
+import ListItem from "@mui/material/ListItem";
 import MediationOutlinedIcon from "@mui/icons-material/MediationOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
@@ -70,23 +71,9 @@ const Sidebar = () => {
         },
       }}
     >
-      <ProSidebar collapsed={isCollapsed}>
+      <ProSidebar>
         <Menu>
           <MenuItem>
-            {/* {(
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="30px"
-                mt="25px"
-              >
-                <Typography variant="h4" color={colors.redAccent}>
-                  HRMS++
-                </Typography>
-              </Box>
-            )} */}
-
             {
               <Box
                 sx={{
@@ -97,7 +84,7 @@ const Sidebar = () => {
                   mt: "25px",
                 }}
               >
-                <SVGComponent />
+              <SVGComponent />
               </Box>
             }
           </MenuItem>
@@ -110,8 +97,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
-            
             {/* <Item
               title="অরগানোগ্রাম"
               to="/organogram"
