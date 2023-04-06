@@ -9,6 +9,7 @@ import Dashboard from "./scenes/dashboard";
 import Organogram from "./scenes/organogram";
 import EmlpoyeeList from "./scenes/Employee";
 import { Routes, Route } from "react-router-dom";
+import LeaveApply from "./scenes/LeaveApply";
 
 
 function LoginPage() {
@@ -65,6 +66,7 @@ function LoginPage() {
           )}
           <Routes>
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/LeaveApply" element={<LeaveApply />} />
             {/* <Route path="/organogram" element={<Organogram />} /> */}
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
             

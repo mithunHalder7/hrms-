@@ -10,6 +10,10 @@ import TreeView from '@mui/lab/TreeView';
 import TreeItem from '@mui/lab/TreeItem';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
+import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
+import RemoveDoneSharpIcon from '@mui/icons-material/RemoveDoneSharp';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -59,6 +63,25 @@ const Sidebar = () => {
         "& .pro-menu-item.active": {
           color: "#6870fa !important",
         },
+        "& .MuiTreeItem-content":
+        {
+          padding:"15px",
+          textAlign:"center",
+          background: "none",
+          color:"black"
+        },
+        "& .MuiTreeItem-content:hover":
+        {
+          color: "#868dfb !important",
+          background: "transparent",
+
+        },
+        "& .MuiTreeItem-content:active":
+        {
+          color: "#868dfb !important",
+          background: "none",
+
+        }
       }}
     >
       <ProSidebar>
@@ -84,11 +107,8 @@ const Sidebar = () => {
               aria-label="file system navigator"
               defaultCollapseIcon={<ExpandMoreIcon />}
               defaultExpandIcon={<ChevronRightIcon />}
-              sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+              sx={{ height: 240, flexGrow: 1, maxWidth: 300}}
             >
-              <TreeItem nodeId="1" label="Applications">
-                <TreeItem nodeId="2" label="Calendar" />
-              </TreeItem>
               <Item
                 title="ড্যাশবোর্ড"
                 to="/dashboard"
@@ -96,6 +116,37 @@ const Sidebar = () => {
                 selected={selected}
                 setSelected={setSelected}
               />
+
+              <TreeItem nodeId="1" label="ছুটি">
+              <Item
+                title="ছুটির আবেদন"
+                to="/LeaveApply"
+                icon={<EmailOutlinedIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="ছুটির রেকর্ড"
+                to="/dashboard"
+                icon={<HistoryOutlinedIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="আবেদনকৃত ছুটির স্ট্যাটাস"
+                to="/dashboard"
+                icon={<FactCheckOutlinedIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="ছুটি অনুমোদন/প্রত্যাখ্যান"
+                to="/dashboard"
+                icon={<RemoveDoneSharpIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              </TreeItem>
               {/* <Item
               title="অরগানোগ্রাম"
               to="/organogram"
