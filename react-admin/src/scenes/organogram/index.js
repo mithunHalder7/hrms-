@@ -11,25 +11,38 @@ import useFetch from './useFetch';
 
 
 
-const makeNodes=(node)=>
-{
-  const obj = {
+const makeNodes = (node) => {
+  if (node.employee.name === null) {
+    return {
+      id: node.id.toString(),
+      type: 'custom',
+      data: { name: '', job: node.name, emoji: '', department: node.department.name, dep_id: node.department.id },
+      position: {},
+    }
+  }
+  return {
     id: node.id.toString(),
     type: 'custom',
-    data: {name:'', job: node.name, emoji:'',department: node.department.name},
-    position:{},
-  }
-  return obj;
+    data: { name: node.employee.name, job: node.name, emoji: '', department: node.department.name, dep_id: node.department.id },
+    position: {},
+  };
 }
 const makeFnode=(node)=>
 {
-  const obj = {
+  if (node.employee.name === null) {
+    return {
+      id: node.id.toString(),
+      type: 'custom',
+      data: { name: '', job: node.name, emoji: '', department: node.department.name, dep_id: node.department.id },
+      position: {x:0,y:0},
+    }
+  }
+  return {
     id: node.id.toString(),
     type: 'custom',
-    data: {name:'', job: node.name, emoji:'', department: node.department.name},
-    position:{x:0, y:0},
-  }
-  return obj;
+    data: { name: node.employee.name, job: node.name, emoji: '', department: node.department.name, dep_id: node.department.id },
+    position: {x:0,y:0},
+  };
 }
 
 
@@ -42,7 +55,7 @@ const makeFedge=(nodes)=>
     source: nodes.id.toString(),
     target: nodes.parent_id.toString(),
     type: 'smoothstep',
-    animated: true,
+    style: { stroke: '#CA4E79' }
   }
   return edge;
 }
@@ -56,7 +69,7 @@ const makeEdges=(nodes)=>
     source: nodes.parent_id.toString(),
     target: nodes.id.toString(),
     type: 'smoothstep',
-    animated: true,
+    style: { stroke: '#CA4E79' }
   }
   return edge;
 }
@@ -70,12 +83,12 @@ const Organogram = () => {
   const initNodes = chuncks.map((items)=>(items.parent_id == -1)?makeFnode(items): makeNodes(items));
 
   const initEdges = chuncks.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
-
+  // console.log(chuncks);
   window.localStorage.setItem('nodes', JSON.stringify(initNodes));
   window.localStorage.setItem('edges', JSON.stringify(initEdges));
 // window.localStorage.clear();
   // console.log(window.localStorage.length);
-  if(window.localStorage.length === 0)
+  if(initNodes.length === 0)
   {
     return <DefaultScreen open={open} setOpen = {setOpen}/>
   }

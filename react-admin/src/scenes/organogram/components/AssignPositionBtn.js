@@ -16,7 +16,7 @@ import PosData from '../all_data/positioned.json';
 import { callbackify } from 'util';
 import useFetch from '../useFetch';
 import { useEffect, useState } from 'react';
-import TextField  from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import usePost from '../usePost';
 
 
@@ -60,7 +60,7 @@ export default function AssignEmployeeBtn() {
           department_id: values.বিভাগ.toString(),
           parent_id: "-1",
         };
-        
+
         let options = {
           method: "POST",
           headers: {
@@ -87,11 +87,11 @@ export default function AssignEmployeeBtn() {
         //   animated: true,
         // }
 
-        window.localStorage.setItem('user', JSON.stringify([{}]));
+        window.localStorage.setItem('nodes', JSON.stringify([obj]));
         // window.localStorage.setItem('edges', JSON.stringify([edge]));
 
         // console.log(window.localStorage.getItem('edges'));
-        // window.location.reload();
+        window.location.reload();
         // window.localStorage.clear();
       }
     }
@@ -118,6 +118,7 @@ export default function AssignEmployeeBtn() {
               fontSize: "18px",
               borderRadius: "20px",
               background: "#25316D",
+              color: "white",
             }
           }
           value="1"
@@ -143,7 +144,7 @@ export default function AssignEmployeeBtn() {
 
               <FormControl fullWidth>
 
-                <TextField id="outlined-basic" label="পদের নাম" variant="outlined" value={formik.values.পদের_নাম} onChange={formik.handleChange} name="পদের_নাম"/>
+                <TextField id="outlined-basic" label="পদের নাম" variant="outlined" value={formik.values.পদের_নাম} onChange={formik.handleChange} name="পদের_নাম" />
 
               </FormControl>
 

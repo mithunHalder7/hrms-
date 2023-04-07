@@ -37,7 +37,7 @@ export default function defaultScreen(props) {
   
         {/* header  */}
   
-        <Box m="20px">
+        <Box m="20px" onClick={handleClose}>
           <Header
             title="অরগানোগ্রাম"
             subtitle="সামগ্রিক অরগানোগ্রাম"

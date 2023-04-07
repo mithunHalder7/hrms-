@@ -52,8 +52,8 @@ const getLayoutedElements = (nodes, edges, direction = 'TB') => {
     // We are shifting the dagre node position (anchor=center center) to the top left
     // so it matches the React Flow node anchor point (top left).
     node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
+      x: (nodeWithPosition.x - nodeWidth / 2) * 1.5,
+      y: (nodeWithPosition.y - nodeHeight / 2) * 1.5,
     };
 
     return node;
@@ -97,6 +97,9 @@ const onNodeClick = (event, node) => {
   // console.log(window.localStorage.getItem('edges'));
 
   window.localStorage.setItem('parent', JSON.stringify(node.id));
+  window.localStorage.setItem('parent_pos', JSON.stringify(node.data.job));
+  window.localStorage.setItem('parent_dept', JSON.stringify(node.data.dep_id));
+  // console.log(node.data.dep_id);
   // console.log(window.localStorage.getItem('parent'));
   // console.log(window.localStorage.getItem('edges'));
   // makeNodes();
@@ -129,7 +132,7 @@ const AsholOrganogram = () => {
   const onConnect = useCallback(
     (params) =>
       setEdges((eds) =>
-        addEdge({ ...params, type: ConnectionLineType.SmoothStep, animated: true }, eds)
+        addEdge({ ...params, type: ConnectionLineType.SmoothStep}, eds)
       ),
     []
   );
