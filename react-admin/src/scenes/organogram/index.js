@@ -56,14 +56,13 @@ const makeEdges=(nodes)=>
     source: nodes.parent_id.toString(),
     target: nodes.id.toString(),
     type: 'smoothstep',
-    style: { stroke: 'red' },
+    animated: true,
   }
   return edge;
 }
 
 
-window.localStorage.clear();
-// window.localStorage.clear('edges');
+
 
 const Organogram = () => {
   const [open, setOpen] = React.useState(false);
@@ -74,13 +73,10 @@ const Organogram = () => {
 
   window.localStorage.setItem('nodes', JSON.stringify(initNodes));
   window.localStorage.setItem('edges', JSON.stringify(initEdges));
-
-  // console.log(initNodes);
 // window.localStorage.clear();
   // console.log(window.localStorage.length);
-  if(initNodes.length === 0)
+  if(window.localStorage.length === 0)
   {
-    // console.log("true");
     return <DefaultScreen open={open} setOpen = {setOpen}/>
   }
 

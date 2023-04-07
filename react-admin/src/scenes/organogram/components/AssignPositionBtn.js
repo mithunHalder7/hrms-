@@ -87,11 +87,11 @@ export default function AssignEmployeeBtn() {
         //   animated: true,
         // }
 
-        window.localStorage.setItem('nodes', JSON.stringify([obj]));
+        window.localStorage.setItem('user', JSON.stringify([{}]));
         // window.localStorage.setItem('edges', JSON.stringify([edge]));
 
         // console.log(window.localStorage.getItem('edges'));
-        window.location.reload();
+        // window.location.reload();
         // window.localStorage.clear();
       }
     }

@@ -14,7 +14,6 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import RemoveDoneSharpIcon from '@mui/icons-material/RemoveDoneSharp';
-import MediationOutlinedIcon from '@mui/icons-material/MediationOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
