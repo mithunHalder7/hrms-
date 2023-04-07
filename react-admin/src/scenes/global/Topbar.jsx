@@ -17,13 +17,9 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 const Topbar = (props) => {
-  let active_usr_name = sessionStorage["usr_active_name"];
-  let active_user_password = sessionStorage["user_password"];
-
-  const [current_user_name, setCurrentUserName] = useState(active_usr_name);
-  const [currentPassword, setCurrentPassword] = useState(active_user_password);
-  const navigate = useNavigate();
   const [openDialog, setOpenDialog] = useState(false);
+
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -37,14 +33,14 @@ const Topbar = (props) => {
   const logOutHandle = () => {
     handleClose();
     window.location.reload();
-    sessionStorage.setItem("usr_active", "logout");
+    sessionStorage.setItem('usr_active', "logout")
   };
 
   const handlePasswordChange = () => {
     setOpenDialog(true);
   };
 
-  const handlePasswordChangeCloseDialog = () => {
+  const handleCloseDialog = () => {
     setOpenDialog(false);
   };
 
@@ -52,36 +48,25 @@ const Topbar = (props) => {
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Dialog open={openDialog} onClose={handleClose}>
-        <form onSubmit={handlePasswordChangeCloseDialog}>
-        <DialogTitle>পাসওয়ার্ড পরিবর্তন করুন</DialogTitle>
+        <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
+          <DialogContentText>
+            To subscribe to this website, please enter your email address here.
+            We will send updates occasionally.
+          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Username"
+            label="Email Address"
+            type="email"
             fullWidth
             variant="standard"
-           // onChange={}
-            value={current_user_name}
           />
-
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Password"
-            fullWidth
-            variant="standard"
-            //onChange={}
-            value={currentPassword}
-          />
-
         </DialogContent>
         <DialogActions>
-          <Button type="submit">Change</Button>
+          <Button onClick={handleCloseDialog}>Change</Button>
         </DialogActions>
-        </form>
       </Dialog>
       <Box
         display="flex"

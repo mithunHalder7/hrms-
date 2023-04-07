@@ -12,11 +12,23 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "./theme";
 import Organogram from "./scenes/organogram";
 
+
 function App() {
+  
+
   return (
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-    </Routes>
+    
+        <div className="app">
+          <Sidebar />
+          <main className="content">
+            <Topbar  />
+            <Routes>
+              <Route path="/" element={<LoginPage/>} />
+              
+            </Routes>
+          </main>
+        </div>
+      
   );
 }
 
