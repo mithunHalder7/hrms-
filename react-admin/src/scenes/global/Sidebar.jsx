@@ -14,6 +14,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import RemoveDoneSharpIcon from '@mui/icons-material/RemoveDoneSharp';
+import MediationOutlinedIcon from '@mui/icons-material/MediationOutlined';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -149,13 +150,13 @@ const Sidebar = () => {
                 setSelected={setSelected}
               />
               </TreeItem>
-              {/* <Item
+              <Item
               title="অরগানোগ্রাম"
               to="/organogram"
               icon={<MediationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            /> */}
+            />
               {/* <Item
               title="কর্মকর্তা/কর্মচারী"
               to="/Employee"

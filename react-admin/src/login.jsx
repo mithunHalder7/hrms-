@@ -73,7 +73,7 @@ function LoginPage() {
             <Route path="/LeaveRecord" element={<LeaveRecord />} />
             <Route path="/LeaveStatus" element={<LeaveStatus />} />
             <Route path="/LeaveApproval" element={<LeaveApproval/>} />
-            {/* <Route path="/organogram" element={<Organogram />} /> */}
+            <Route path="/organogram" element={<Organogram />} />
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
             
           </Routes>
