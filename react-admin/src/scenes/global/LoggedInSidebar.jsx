@@ -6,9 +6,6 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import SVGComponent from "./SVGComponent";
 
-
-
-
 const LoggedInSidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
@@ -42,27 +39,17 @@ const LoggedInSidebar = () => {
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
-        <Menu>
-          <MenuItem >
-            
-
-            {
-              <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  ml: "30px",
-                  mt: "25px",
-                }}
-              >
-                <SVGComponent />
-              </Box>
-            }
-          </MenuItem>
-
-          
-        </Menu>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            ml: "30px",
+            mt: "200px",
+          }}
+        >
+          <SVGComponent />
+        </Box>
       </ProSidebar>
     </Box>
   );
