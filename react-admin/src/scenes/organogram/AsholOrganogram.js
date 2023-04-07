@@ -97,11 +97,12 @@ const onNodeClick = (event, node) => {
   // console.log(window.localStorage.getItem('edges'));
 
   window.localStorage.setItem('parent', JSON.stringify(node.id));
+  window.localStorage.setItem('parent_pos', JSON.stringify(node.data.job));
   // console.log(window.localStorage.getItem('parent'));
   // console.log(window.localStorage.getItem('edges'));
   // makeNodes();
   // var newObj = window.localStorage.getItem('user');
-  // console.log(newObj);
+  // console.log(node.data.job);
 
 }
 
@@ -129,7 +130,7 @@ const AsholOrganogram = () => {
   const onConnect = useCallback(
     (params) =>
       setEdges((eds) =>
-        addEdge({ ...params, type: ConnectionLineType.SmoothStep, animated: true }, eds)
+        addEdge({ ...params, type: ConnectionLineType.SmoothStep}, eds)
       ),
     []
   );
@@ -151,7 +152,7 @@ const AsholOrganogram = () => {
 
   return (
     <div className="layoutflow">
-        <Box m="20px">
+        <Box mx="60px">
         <Header
           title="অরগানোগ্রাম"
           subtitle="সামগ্রিক অরগানোগ্রাম"
