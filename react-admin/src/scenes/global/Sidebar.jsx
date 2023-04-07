@@ -150,13 +150,13 @@ const Sidebar = () => {
                 setSelected={setSelected}
               />
               </TreeItem>
-              <Item
+              {/* <Item
               title="অরগানোগ্রাম"
               to="/organogram"
               icon={<MediationOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
               {/* <Item
               title="কর্মকর্তা/কর্মচারী"
               to="/Employee"
