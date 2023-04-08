@@ -32,6 +32,7 @@ const Topbar = (props) => {
 
   const logOutHandle = () => {
     handleClose();
+    // sessionStorage.clear();
     window.location.reload();
     sessionStorage.setItem('active_user', 'none');
   };

@@ -10,6 +10,8 @@ import useFetch from '../../organogram/useFetch';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
+
+
 const sxButton =
 {
     background: "transparent", color: "black", border: "none", wordSpacing: "5px", borderBottom: "2px solid #99C4C8", textAlign: "left",
@@ -32,6 +34,10 @@ const rejBtn =
     color: "black",
 }
 
+function reverseString(str) {
+    return str.split("").reverse().join("");
+}
+
 
 
 export default function ApplyForm() {
@@ -49,12 +55,14 @@ export default function ApplyForm() {
                 leave_start: "",
             },
             onSubmit: (values) => {
-                // console.log(values);
+                const dayjs = require('dayjs');
+                let start_date = dayjs(values.leave_start).format('MM-DD-YYYY');
+                let end_date = dayjs(values.leave_end).format('MM-DD-YYYY');
                 const obj = {
                     "leave_approval_status": 0,
-                    "leave_end_date": values.leave_end,
+                    "leave_end_date": end_date,
                     "employee_id": usr_id[0].id,
-                    "leave_start_date": values.leave_start,
+                    "leave_start_date": start_date,
                     "leave_type_id": values.leave_cat
                 }
 
@@ -91,6 +99,8 @@ export default function ApplyForm() {
                             name="leave_start"
                             value={formik.values.leave_start}
                             onChange={formik.handleChange}
+                            format="yyyy-mm-dd"
+                            placeholder="yyyy-mm-dd"
                             required
                         />
                     </FormControl>
@@ -100,6 +110,8 @@ export default function ApplyForm() {
                             type="date"
                             id="leave_end"
                             name="leave_end"
+                            format="yyyy-mm-dd"
+                            placeholder="yyyy-mm-dd"
                             value={formik.values.leave_end}
                             required
                             onChange={formik.handleChange}

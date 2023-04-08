@@ -86,7 +86,7 @@ const Organogram = () => {
   const initEdges = chuncks?.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
   window.localStorage.setItem('nodes', JSON.stringify(initNodes));
   window.localStorage.setItem('edges', JSON.stringify(initEdges));
-  console.log(initNodes);
+  // console.log(initNodes);
 
 // window.localStorage.clear();
   // console.log(window.localStorage.length);

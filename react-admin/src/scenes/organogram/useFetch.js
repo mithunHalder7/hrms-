@@ -17,11 +17,6 @@ export default function useFetch(url) {
     useEffect(() => {
       fetchUserData()
     }, [])
-
-    if(!info)
-    {
-        return [{}];
-    }
     
     return info;
 }

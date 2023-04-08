@@ -64,7 +64,7 @@ export default function LoginPage() {
         if(response.data.login_status == "success")
         {
           
-          const usr_id = usr_list.filter((usr) => usr.user_name == username);
+          const usr_id = usr_list?.filter((usr) => usr.user_name == username);
           sessionStorage.setItem('act_usr_id', usr_id[0].id);
           sessionStorage.setItem('act_usr_name', username);
           sessionStorage.setItem('active_user', 'employee');
