@@ -11,19 +11,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Header from '../../../components/Header';
-
-
-
+import useFetch from '../../organogram/useFetch';
 function createData(leave_type, leave_start, leave_end) {
   return {leave_type, leave_start, leave_end};
 }
 
-const rows = [
-  createData('ক্যাজুয়াল ছুটি', "০৫-০১-২০২৩","০৫-০১-২০২৩"),
-  createData('মেডিক্যাল ছুটি', "১১-০২-২০২৩","০৫-০১-২০২৩"),
-  createData('ক্যাজুয়াল ছুটি', "০৫-০১-২০২৩","১২-০২-২০২৩"),
-  createData('ক্যাজুয়াল ছুটি', "০৫-০১-২০২৩","০৫-০১-২০২৩"),
-];
 
 
 const sxButton =
@@ -37,6 +29,16 @@ const sxButton =
 }
 
 export default function RecordForm() {
+
+    const usr_id = sessionStorage.getItem('act_usr_id');
+    const emp_leave_history = useFetch('http://localhost:5000/employee/'+usr_id);
+    // console.log(emp_leave_history.leaves);
+    let nRow = emp_leave_history.leaves?.map((item)=> createData(item.leave_type.name, item.leave_start_date,item.leave_end_date));
+    
+
+
+    console.log(nRow);
+
     return (
         <div>
             <Box>
@@ -65,7 +67,7 @@ export default function RecordForm() {
             </Box>
             <Box sx={{my:10}}>
             <Header title="নিজের ভোগকৃত ছুটির তালিকা"/>
-                <TableContainer component={Paper} sx={{ minWidth: 450 }}>
+            <TableContainer component={Paper} sx={{ minWidth: 450 }}>
                     <Table sx={{ minWidth: 450 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
@@ -75,7 +77,7 @@ export default function RecordForm() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {nRow?.map((row) => (
                                 <TableRow
                                     key={row.leave_type}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

@@ -81,9 +81,9 @@ const makeEdges=(nodes)=>
 const Organogram = () => {
   const [open, setOpen] = React.useState(false);
   const chuncks = useFetch("http://localhost:5000/office_post");
-  const initNodes = chuncks.map((items)=>(items.parent_id == -1)?makeFnode(items): makeNodes(items));
+  const initNodes = chuncks?.map((items)=>(items.parent_id == -1)?makeFnode(items): makeNodes(items));
 
-  const initEdges = chuncks.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
+  const initEdges = chuncks?.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
   window.localStorage.setItem('nodes', JSON.stringify(initNodes));
   window.localStorage.setItem('edges', JSON.stringify(initEdges));
   console.log(initNodes);

@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import useFetch from '../organogram/useFetch';
 
 
 function createData(leave_type, leave_start, leave_end, leave_status) {
@@ -25,6 +25,11 @@ const rows = [
 
 
 export default function LeaveStatus() {
+    const usr_id = sessionStorage.getItem('act_usr_id');
+    const emp_leave_history = useFetch('http://localhost:5000/employee/'+usr_id);
+    // console.log(emp_leave_history.leaves);
+    let nRow = emp_leave_history.leaves?.map((item)=> item.leave_approval_status == 0 ? createData(item.leave_type.name, item.leave_start_date, item.leave_end_date, "সিদ্ধান্তহীন") : item.leave_approval_status == 1? createData(item.leave_type.name, item.leave_start_date, item.leave_end_date, "অনুমোদিত") : item.leave_approval_status == 2? createData(item.leave_type.name, item.leave_start_date, item.leave_end_date, "প্রত্যাখ্যাত") : {});
+
     return (
         <div>
             <Box mx="60px">
@@ -42,7 +47,7 @@ export default function LeaveStatus() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
+                            {nRow?.map((row) => (
                                 row.leave_status == "অনুমোদিত" 
                                 ?
                                 <TableRow

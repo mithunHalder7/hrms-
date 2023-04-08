@@ -29,6 +29,7 @@ import axios from 'axios';
 
 
 export default function LoginPage() {
+  const usr_list = useFetch('http://localhost:5000/employee');
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
@@ -48,6 +49,7 @@ export default function LoginPage() {
     // console.log(username, password);
     if(username == "admin" && password == "1234")
     {
+      sessionStorage.setItem('act_usr_name', username);
       sessionStorage.setItem('active_user', 'admin');
       window.location.reload(); 
     }
@@ -61,6 +63,10 @@ export default function LoginPage() {
       .then(function (response) {
         if(response.data.login_status == "success")
         {
+          
+          const usr_id = usr_list.filter((usr) => usr.user_name == username);
+          sessionStorage.setItem('act_usr_id', usr_id[0].id);
+          sessionStorage.setItem('act_usr_name', username);
           sessionStorage.setItem('active_user', 'employee');
           sessionStorage.setItem('user_pass_stat', response.data.change_password_status.toString());
           window.location.reload();

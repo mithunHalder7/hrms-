@@ -76,6 +76,7 @@ const Topbar = (props) => {
         boxShadow="0px 0px 15px -3px rgba(0, 0, 0, 0.25)"
       >
         <Box sx={{ flex: 1 }} />
+        <Box sx={{m:2, textTransform:"uppercase"}}>{sessionStorage.getItem('act_usr_name')}</Box>
         <IconButton
           onClick={handleClick}
           size="small"
@@ -84,7 +85,8 @@ const Topbar = (props) => {
           aria-haspopup="true"
           aria-expanded={open ? "true" : undefined}
         >
-          <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          {/* sessionStorage.setItem('act_usr_name', username); */}
+          <Avatar sx={{ width: 32, height: 32, textTransform:"uppercase"}}>{sessionStorage.getItem('act_usr_name')[0]}</Avatar>
         </IconButton>
       </Box>
       <Menu
