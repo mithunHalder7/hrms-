@@ -12,7 +12,8 @@ import useFetch from './useFetch';
 
 
 const makeNodes = (node) => {
-  if (node.employee.name === null) {
+  if (!node.employee) {
+    // console.log("true");
     return {
       id: node.id.toString(),
       type: 'custom',
@@ -29,7 +30,7 @@ const makeNodes = (node) => {
 }
 const makeFnode=(node)=>
 {
-  if (node.employee.name === null) {
+  if (!node.employee) {
     return {
       id: node.id.toString(),
       type: 'custom',
@@ -83,9 +84,10 @@ const Organogram = () => {
   const initNodes = chuncks.map((items)=>(items.parent_id == -1)?makeFnode(items): makeNodes(items));
 
   const initEdges = chuncks.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
-  // console.log(chuncks);
   window.localStorage.setItem('nodes', JSON.stringify(initNodes));
   window.localStorage.setItem('edges', JSON.stringify(initEdges));
+  console.log(initNodes);
+
 // window.localStorage.clear();
   // console.log(window.localStorage.length);
   if(initNodes.length === 0)

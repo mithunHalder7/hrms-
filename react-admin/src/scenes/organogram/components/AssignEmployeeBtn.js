@@ -110,27 +110,6 @@ export default function AssignEmployeeBtn() {
   const nRow = unPosEmployees.map((item)=> Object.keys(item._office_post).length == 0? { id: item.id, name: item.name, phone_no:item.phone, pos: "নাই"} : {});
   // console.log(nRow);
 
-  const handleRowCLick=()=>
-  {
-    const empl_id = sessionStorage.getItem('sel_empl');
-    sessionStorage.removeItem('sel_empl');
-    const name = nRow.map((item)=>item.id == empl_id ? item.name: "");
-    // console.log(name[empl_id-1]);
-    console.log(name[empl_id-1], empl_id, parentDep, parentId);
-    const obj = {
-      "name": name[empl_id-1],
-      "employee_id": parseInt(empl_id),
-      "parent_id": parseInt(parentId),
-      "department_id": parseInt(parentDep)
-    }
-    axios.put('http://localhost:5000/office_post/'+empl_id, obj)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      }); 
-  }
 
 
   let departments = useFetch("http://localhost:5000/department");
@@ -157,7 +136,25 @@ export default function AssignEmployeeBtn() {
 
   const handleAddEmpClose = () => {
     setOpenAddEmp(false);
-    window.location.reload();
+    const empl_id = sessionStorage.getItem('sel_empl');
+    sessionStorage.removeItem('sel_empl');
+    const name = nRow.map((item)=>item.id == empl_id ? item.name: "");
+    // console.log(name[empl_id-1]);
+    console.log(name[empl_id-1], empl_id, parentDep, parentId);
+    const obj = {
+      "name": name[empl_id-1],
+      "employee_id": parseInt(empl_id),
+      "parent_id": parseInt(parentId),
+      "department_id": parseInt(parentDep)
+    }
+    axios.put('http://localhost:5000/office_post/'+empl_id, obj)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      }); 
+    // window.location.reload();
   };
 
 
@@ -321,7 +318,7 @@ export default function AssignEmployeeBtn() {
                 rowsPerPageOptions={[5]}
                 slots={{ toolbar: GridToolbar }}
                 onRowSelectionModelChange={(itm) => sessionStorage.setItem('sel_empl', itm.at(0))}
-                onRowClick={handleRowCLick}
+                // onRowClick={handleRowCLick}
               />
             </div>
           </Typography>
