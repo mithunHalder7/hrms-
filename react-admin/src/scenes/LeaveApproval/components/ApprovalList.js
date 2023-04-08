@@ -48,10 +48,33 @@ export default function ApprovalList() {
     const isPositioned = initNode?.filter((item) => item.data.emp_id == usr_id);
     const pos_id = isPositioned[0]?.id;
 
-    const emp_leave_history = useFetch('http://localhost:5000/leave/subordinate_leave/'.concat(pos_id));
+    const emp_leave_history = useFetch('http://localhost:5000/leave/subordinate_leave/'+pos_id);
 
     const nRow = emp_leave_history?.map((item) => createData(item.leave_id, item.employee_name, item.leave_type_name, item.leave_start_date, item.leave_end_date));
     console.log(nRow);
+    function handleClickReject(event, id) {
+        const emp_info = emp_leave_history?.filter((item)=> item.leave_id == id);
+        // console.log(emp_info);
+
+        const obj = {
+            "leave_approval_status": 2,
+            "leave_end_date": emp_info[0]?.leave_end_date,
+            "employee_id": emp_info[0]?.employee_id,
+            "leave_start_date": emp_info[0]?.leave_start_date,
+            "leave_type_id": id
+        }
+
+        axios.put('http://localhost:5000/leave/' + id, obj)
+            .then(function (response) {
+                console.log(response);
+                window.alert("Action performed successfully!");
+            })
+            .catch(function (error) {
+                console.log(error);
+                window.alert("Action failed!");
+            });
+        // window.location.reload();
+    }
     function handleClick(event, id) {
         const emp_info = emp_leave_history?.filter((item)=> item.leave_id == id);
         // console.log(emp_info);
@@ -67,11 +90,13 @@ export default function ApprovalList() {
         axios.put('http://localhost:5000/leave/' + id, obj)
             .then(function (response) {
                 console.log(response);
+                window.alert("Action performed successfully!");
             })
             .catch(function (error) {
                 console.log(error);
+                window.alert("Action failed!");
             });
-        window.location.reload();
+        // window.location.reload();
     }
 
     return (
@@ -103,7 +128,7 @@ export default function ApprovalList() {
                                 <TableCell align="left">{row.leave_end}</TableCell>
                                 <TableCell align="center">
                                     <Button size="small" sx={appBtn} onClick={(event) => handleClick(event, row.leave_id)}>অনুমোদন</Button>
-                                    <Button size="small" sx={rejBtn}>প্রত্যাখ্যান</Button>
+                                    <Button size="small" sx={rejBtn} onClick={(event) => handleClickReject(event, row.leave_id)}>প্রত্যাখ্যান</Button>
                                 </TableCell>
                             </TableRow>
                         ))}
