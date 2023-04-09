@@ -1,22 +1,55 @@
 import {useEffect, useState} from 'react';
+import axios from 'axios';
+
+
+// export default function useFetch(url) {
+//     const [info, setInfo] = useState([])
+
+//     const fetchUserData = () => {
+//       fetch(url)
+//         .then(response => {
+//           return response.json()
+//         })
+//         .then(data => {
+//           setInfo(data)
+//         })
+//         .catch(error => {
+//           console.log(error);
+//         });
+//     }
+  
+//     useEffect(() => {
+//       fetchUserData();
+//     }, [])
+    
+//     return info;
+// }
+
+// const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //   axios.get('https://example.com/api/data')
+  //     .then(response => {
+  //       setData(response.data);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
 
 export default function useFetch(url) {
-    const [info, setInfo] = useState([])
+  const [data, setData] = useState([]);
 
-    const fetchUserData = () => {
-      fetch(url)
-        .then(response => {
-          return response.json()
-        })
-        .then(data => {
-          setInfo(data)
-        })
-    }
-  
-    useEffect(() => {
-      fetchUserData()
-    }, [])
+  useEffect(() => {
+    axios.get(url)
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
     
-    return info;
+    return data;
 }

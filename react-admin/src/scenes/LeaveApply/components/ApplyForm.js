@@ -70,13 +70,14 @@ export default function ApplyForm() {
                 axios.post('http://localhost:5000/leave', obj)
                     .then(function (response) {
                         console.log(response);
-                        window.alert("successfully applied!");
+                        // window.alert("successfully applied!");
                     })
                     .catch(function (error) {
                         console.log(error);
-                        window.alert("failed request!!");
+                        // window.alert("failed request!!");
                     });
                 formik.handleReset();
+                window.alert("successfully applied!");
                 // window.location.reload();
             }
         }
