@@ -15,10 +15,15 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import  axios  from "axios";
+
 
 const Topbar = (props) => {
-  const [openDialog, setOpenDialog] = useState(false);
 
+  const [user_name, setCurrentUserName] = useState();
+  const [password, setCurrentPassword] = useState();
+
+  const [openDialog, setOpenDialog] = useState(false);
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -34,14 +39,34 @@ const Topbar = (props) => {
     handleClose();
     // sessionStorage.clear();
     window.location.reload();
-    sessionStorage.setItem('active_user', 'none');
+    sessionStorage.setItem("active_user", "none");
   };
 
   const handlePasswordChange = () => {
     setOpenDialog(true);
   };
 
-  const handleCloseDialog = () => {
+  
+
+  const handlePasswordChangeCloseDialog = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/employee/change_password",
+        {
+          user_name,
+          password,
+        }
+      );
+
+      console.log(response.data.change_password_status);
+    } catch (error) {
+      // Handle API call error
+    }
+    setOpenDialog(false);
+  };
+
+  const handleDialogClose = () => {
     setOpenDialog(false);
   };
 
@@ -49,25 +74,37 @@ const Topbar = (props) => {
     <Box display="flex" justifyContent="space-between" p={2}>
       {/* SEARCH BAR */}
       <Dialog open={openDialog} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Email Address"
-            type="email"
-            fullWidth
-            variant="standard"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Change</Button>
-        </DialogActions>
+        <form onSubmit={handlePasswordChangeCloseDialog}>
+          <DialogTitle>পাসওয়ার্ড পরিবর্তন করুন</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="নাম"
+              fullWidth
+              variant="standard"
+              onChange={(e) => setCurrentUserName(e.target.value)}
+              value={user_name}
+            />
+
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="পাসওয়ার্ড"
+              fullWidth
+              variant="standard"
+              onChange={(e) => setCurrentPassword(e.target.value)}
+              value={password}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleDialogClose}>বাতিল</Button>
+
+            <Button type="submit">পরিবর্তন</Button>
+          </DialogActions>
+        </form>
       </Dialog>
       <Box
         display="flex"
@@ -77,7 +114,9 @@ const Topbar = (props) => {
         boxShadow="0px 0px 15px -3px rgba(0, 0, 0, 0.25)"
       >
         <Box sx={{ flex: 1 }} />
-        <Box sx={{m:2, textTransform:"uppercase"}}>{sessionStorage.getItem('act_usr_name')}</Box>
+        <Box sx={{ m: 2, textTransform: "uppercase" }}>
+          {sessionStorage.getItem("act_usr_name")}
+        </Box>
         <IconButton
           onClick={handleClick}
           size="small"
@@ -87,7 +126,9 @@ const Topbar = (props) => {
           aria-expanded={open ? "true" : undefined}
         >
           {/* sessionStorage.setItem('act_usr_name', username); */}
-          <Avatar sx={{ width: 32, height: 32, textTransform:"uppercase"}}>{sessionStorage.getItem('act_usr_name')[0]}</Avatar>
+          <Avatar sx={{ width: 32, height: 32, textTransform: "uppercase" }}>
+            {sessionStorage.getItem("act_usr_name")[0]}
+          </Avatar>
         </IconButton>
       </Box>
       <Menu
