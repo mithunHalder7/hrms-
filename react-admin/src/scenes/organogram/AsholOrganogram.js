@@ -120,7 +120,7 @@ console.log(initNode);
 const AsholOrganogram = () => {
   
   // console.log(initEdges);
-
+  // window.location.reload();
   const { nodes: layoutedNodes, edges: layoutedEdges } = getLayoutedElements(
     initNode,
     initEdge

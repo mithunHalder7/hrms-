@@ -10,7 +10,8 @@ import useFetch from '../../organogram/useFetch';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import axios from 'axios';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const sxButton =
 {
@@ -46,7 +47,7 @@ export default function ApplyForm() {
     const usr_name = sessionStorage.getItem('act_usr_name');
     const usr_list = useFetch('http://localhost:5000/employee');
     const usr_id = usr_list.filter((usr) => usr.user_name == usr_name);
-
+    const notify = () => {toast.success("আপনার ছুটি সফলভাবে সিস্টেমে গৃহীত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
     const formik = useFormik(
         {
             initialValues: {
@@ -71,13 +72,14 @@ export default function ApplyForm() {
                     .then(function (response) {
                         console.log(response);
                         // window.alert("successfully applied!");
+                        notify();
                     })
                     .catch(function (error) {
                         console.log(error);
                         // window.alert("failed request!!");
                     });
                 formik.handleReset();
-                window.alert("successfully applied!");
+                // window.alert("successfully applied!");
                 // window.location.reload();
             }
         }
@@ -137,6 +139,7 @@ export default function ApplyForm() {
                         <Button size="small" sx={rejBtn} onClick={formik.handleReset}>বাতিল</Button>
                     </Box>
                 </form>
+                <ToastContainer/>
             </Box>
         </div>
     )

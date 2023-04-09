@@ -40,10 +40,10 @@ export default function LeaveStatus() {
                     <Table sx={{ minWidth: 550 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>ছুটির ধরন</TableCell>
-                                <TableCell align="left">ছুটির শুরু</TableCell>
-                                <TableCell align="left">ছুটির শেষ</TableCell>
-                                <TableCell align="left">ছুটির স্ট্যাটাস</TableCell>
+                                <TableCell sx={{fontWeight:"bold !important"}}>ছুটির ধরন</TableCell>
+                                <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির শুরু</TableCell>
+                                <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির শেষ</TableCell>
+                                <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির স্ট্যাটাস</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
