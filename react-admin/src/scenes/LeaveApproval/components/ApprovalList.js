@@ -43,15 +43,27 @@ export default function ApprovalList() {
     
     // console.log(pos_id);
     const initNode = JSON.parse(window.localStorage.getItem('nodes'));
+    const initEdge = JSON.parse(window.localStorage.getItem('edges'));
     const usr_id = sessionStorage.getItem('act_usr_id');
 
     const isPositioned = initNode?.filter((item) => item.data.emp_id == usr_id);
     const pos_id = isPositioned[0]?.id;
 
     const emp_leave_history = useFetch('http://localhost:5000/leave/subordinate_leave/'+pos_id);
+    // const full_list = useFetch('http://localhost:5000/leave');
+    // const subOrdinates = initEdge?.filter((item)=> item.source == pos_id);
+
+    // let arrWSub = [];
+    // subOrdinates?.map((item)=> initNode?.map((it)=> it.id == item.target ? arrWSub.push(it.data.emp_id): {}));
+
+    let leaves = [];
+    // const emp_leave_history = arrWSub?.map((item)=> full_list?.map((it)=> it.employee?.id == item ? console.log(it): {}));
+    // console.log(leaves);
 
     const nRow = emp_leave_history?.map((item) => createData(item.leave_id, item.employee_name, item.leave_type_name, item.leave_start_date, item.leave_end_date));
-    console.log(nRow);
+    // const nRow = emp_leave_history?.map((item) => item.leave_approval_status == 0 ? createData(item.id, item.employee_name, item.leave_type.name, item.leave_start_date, item.leave_end_date): createData("", "", "", "", ""));
+
+    // console.log(nRow);
     function handleClickReject(event, id) {
         const emp_info = emp_leave_history?.filter((item)=> item.leave_id == id);
         // console.log(emp_info);
@@ -67,12 +79,14 @@ export default function ApprovalList() {
         axios.put('http://localhost:5000/leave/' + id, obj)
             .then(function (response) {
                 console.log(response);
-                window.alert("Action performed successfully!");
+                // window.alert("Action performed successfully!");
             })
             .catch(function (error) {
                 console.log(error);
-                window.alert("Action failed!");
+                // window.alert("Action failed!");
             });
+                // window.alert("Action performed successfully!");
+
         // window.location.reload();
     }
     function handleClick(event, id) {
@@ -90,12 +104,14 @@ export default function ApprovalList() {
         axios.put('http://localhost:5000/leave/' + id, obj)
             .then(function (response) {
                 console.log(response);
-                window.alert("Action performed successfully!");
+                // window.alert("Action performed successfully!");
             })
             .catch(function (error) {
                 console.log(error);
-                window.alert("Action failed!");
+                // window.alert("Action failed!");
             });
+            // window.alert("Action performed successfully!");
+            
         // window.location.reload();
     }
 
@@ -139,4 +155,16 @@ export default function ApprovalList() {
     )
 }
 
+
+// const [data, setData] = useState([]);
+
+//   useEffect(() => {
+//     axios.get('https://example.com/api/data')
+//       .then(response => {
+//         setData(response.data);
+//       })
+//       .catch(error => {
+//         console.log(error);
+//       });
+//   }, []);
 

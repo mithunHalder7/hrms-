@@ -68,33 +68,33 @@ const makeFnode=(node)=>
   };
 }
 
-// const makeFedge=(nodes)=>
-// {
-//   let newID = "e-".concat(nodes.id);
+const makeFedge=(nodes)=>
+{
+  let newID = "e-".concat(nodes.id);
 
-//   const edge ={
-//     id: newID,
-//     source: nodes.id.toString(),
-//     target: nodes.parent_id.toString(),
-//     type: 'smoothstep',
-//     style: { stroke: '#CA4E79' }
-//   }
-//   return edge;
-// }
+  const edge ={
+    id: newID,
+    source: nodes.id.toString(),
+    target: nodes.parent_id.toString(),
+    type: 'smoothstep',
+    style: { stroke: '#CA4E79' }
+  }
+  return edge;
+}
 
-// const makeEdges=(nodes)=>
-// {
-//   let newID = "e-".concat(nodes.id);
+const makeEdges=(nodes)=>
+{
+  let newID = "e-".concat(nodes.id);
 
-//   const edge ={
-//     id: newID,
-//     source: nodes.parent_id.toString(),
-//     target: nodes.id.toString(),
-//     type: 'smoothstep',
-//     style: { stroke: '#CA4E79' }
-//   }
-//   return edge;
-// }
+  const edge ={
+    id: newID,
+    source: nodes.parent_id.toString(),
+    target: nodes.id.toString(),
+    type: 'smoothstep',
+    style: { stroke: '#CA4E79' }
+  }
+  return edge;
+}
 
 
 // window.localStorage.clear();
@@ -104,8 +104,9 @@ export default function EmployeeSystem() {
   const chuncks = useFetch("http://localhost:5000/office_post");
   const initNodes = chuncks?.map((items)=>(items.parent_id == -1)?makeFnode(items): makeNodes(items));
 
-  // const initEdges = chuncks?.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
+  const initEdges = chuncks?.map((items)=>(items.parent_id == -1)?makeFedge(items): makeEdges(items));
   window.localStorage.setItem('nodes', JSON.stringify(initNodes));
+  window.localStorage.setItem('edges', JSON.stringify(initEdges));
   
 
 
