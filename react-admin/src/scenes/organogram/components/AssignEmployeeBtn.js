@@ -154,7 +154,7 @@ export default function AssignEmployeeBtn() {
       .catch(function (error) {
         console.log(error);
       }); 
-    // window.location.reload();
+    window.location.reload();
   };
 
 
@@ -224,7 +224,7 @@ export default function AssignEmployeeBtn() {
           }
           onClick={handleClickOpen}
         >পদ তৈরি</Button>
-        <Button key="two"
+        {/* <Button key="two"
           sx={
             {
               padding: "5px",
@@ -233,7 +233,7 @@ export default function AssignEmployeeBtn() {
               background: "#25316D",
               color:"white",
             }
-          }>পদ অপসরণ</Button>
+          }>পদ অপসরণ</Button> */}
         <Button key="three"
           sx={
             {

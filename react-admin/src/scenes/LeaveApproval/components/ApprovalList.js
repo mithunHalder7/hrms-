@@ -15,7 +15,8 @@ import { useFormik } from 'formik';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
 import { CoPresentSharp } from '@mui/icons-material';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function createData(leave_id, leave_applicant, leave_type, leave_start, leave_end) {
@@ -50,18 +51,10 @@ export default function ApprovalList() {
     const pos_id = isPositioned[0]?.id;
 
     const emp_leave_history = useFetch('http://localhost:5000/leave/subordinate_leave/'+pos_id);
-    // const full_list = useFetch('http://localhost:5000/leave');
-    // const subOrdinates = initEdge?.filter((item)=> item.source == pos_id);
-
-    // let arrWSub = [];
-    // subOrdinates?.map((item)=> initNode?.map((it)=> it.id == item.target ? arrWSub.push(it.data.emp_id): {}));
-
-    let leaves = [];
-    // const emp_leave_history = arrWSub?.map((item)=> full_list?.map((it)=> it.employee?.id == item ? console.log(it): {}));
-    // console.log(leaves);
 
     const nRow = emp_leave_history?.map((item) => createData(item.leave_id, item.employee_name, item.leave_type_name, item.leave_start_date, item.leave_end_date));
-    // const nRow = emp_leave_history?.map((item) => item.leave_approval_status == 0 ? createData(item.id, item.employee_name, item.leave_type.name, item.leave_start_date, item.leave_end_date): createData("", "", "", "", ""));
+    const notifyApproved = () => {toast.success("আবেদনটি অনুমোদিত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
+    const notifyRejected = () => {toast.error("আবেদনটি প্রত্যাখ্যাত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
 
     // console.log(nRow);
     function handleClickReject(event, id) {
@@ -79,7 +72,7 @@ export default function ApprovalList() {
         axios.put('http://localhost:5000/leave/' + id, obj)
             .then(function (response) {
                 console.log(response);
-                // window.alert("Action performed successfully!");
+                notifyRejected();
             })
             .catch(function (error) {
                 console.log(error);
@@ -105,10 +98,11 @@ export default function ApprovalList() {
             .then(function (response) {
                 console.log(response);
                 // window.alert("Action performed successfully!");
+                notifyApproved();
             })
             .catch(function (error) {
                 console.log(error);
-                // window.alert("Action failed!");
+                window.alert("Action failed!");
             });
             // window.alert("Action performed successfully!");
             
@@ -121,12 +115,12 @@ export default function ApprovalList() {
                 <Table sx={{ minWidth: 650 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>ID</TableCell>
-                            <TableCell align="left">আবেদনকারী</TableCell>
-                            <TableCell align="left">ছুটির ধরন</TableCell>
-                            <TableCell align="left">ছুটির শুরু</TableCell>
-                            <TableCell align="left">ছুটির শেষ</TableCell>
-                            <TableCell align="center">সিদ্ধান্ত</TableCell>
+                            <TableCell sx={{display:"none"}}>ID</TableCell>
+                            <TableCell sx={{fontWeight:"bold !important"}}>আবেদনকারী</TableCell>
+                            <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির ধরন</TableCell>
+                            <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির শুরু</TableCell>
+                            <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির শেষ</TableCell>
+                            <TableCell align="center" sx={{fontWeight:"bold !important"}}>সিদ্ধান্ত</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -135,7 +129,7 @@ export default function ApprovalList() {
                                 key={row.leave_id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell component="th" scope="row">
+                                <TableCell component="th" scope="row" sx={{display:"none"}}>
                                     {row.leave_id}
                                 </TableCell>
                                 <TableCell align="left">{row.leave_applicant}</TableCell>
@@ -151,6 +145,7 @@ export default function ApprovalList() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <ToastContainer/>
         </Box>
     )
 }

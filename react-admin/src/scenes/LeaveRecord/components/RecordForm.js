@@ -33,7 +33,8 @@ export default function RecordForm() {
     const usr_id = sessionStorage.getItem('act_usr_id');
     const emp_leave_history = useFetch('http://localhost:5000/employee/'+usr_id);
     // console.log(emp_leave_history.leaves);
-    let nRow = emp_leave_history.leaves?.map((item)=> item.leave_approval_status == 1 ? createData(item.leave_type.name, item.leave_start_date,item.leave_end_date):{});
+    let nRow = emp_leave_history.leaves?.filter((item)=> item.leave_approval_status == 1);
+    nRow = nRow?.map((item)=> createData(item.leave_type.name, item.leave_start_date,item.leave_end_date));
     
 
 
@@ -42,7 +43,7 @@ export default function RecordForm() {
     return (
         <div>
             <Box>
-                <FormControl sx={{ m: 1, minWidth: 210, borderBottom: "2px solid #99C4C8" }}>
+                <FormControl sx={{ m: 1, minWidth: 210, borderBottom: "2px solid #99C4C8"}}>
                     <label htmlFor="leave_start">ছুটির  শুরু</label>
                     <input
                         type="date"
@@ -71,9 +72,9 @@ export default function RecordForm() {
                     <Table sx={{ minWidth: 450 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>ছুটির ধরন</TableCell>
-                                <TableCell align="left">ছুটির শুরু</TableCell>
-                                <TableCell align="left">ছুটির শেষ</TableCell>
+                                <TableCell sx={{fontWeight:"bold !important"}}>ছুটির ধরন</TableCell>
+                                <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির শুরু</TableCell>
+                                <TableCell align="left" sx={{fontWeight:"bold !important"}}>ছুটির শেষ</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
