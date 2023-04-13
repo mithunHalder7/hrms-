@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Box, FormControl } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -40,25 +40,20 @@ const rejBtn =
     color: "black",
 }
 
-export default function ApprovalList() {
+export default function ApprovalList(props) {
+
     
-    // console.log(pos_id);
-    const initNode = JSON.parse(window.localStorage.getItem('nodes'));
-    const initEdge = JSON.parse(window.localStorage.getItem('edges'));
-    const usr_id = sessionStorage.getItem('act_usr_id');
+    
+    const nRow = props.leave_history?.map((item) => createData(item.leave_id, item.employee_name, item.leave_type_name, item.leave_start_date, item.leave_end_date));
+    // console.log(nRow);
+    // console.log(props.leave_history);
 
-    const isPositioned = initNode?.filter((item) => item.data.emp_id == usr_id);
-    const pos_id = isPositioned[0]?.id;
-
-    const emp_leave_history = useFetch('http://localhost:5000/leave/subordinate_leave/'+pos_id);
-
-    const nRow = emp_leave_history?.map((item) => createData(item.leave_id, item.employee_name, item.leave_type_name, item.leave_start_date, item.leave_end_date));
     const notifyApproved = () => {toast.success("আবেদনটি অনুমোদিত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
     const notifyRejected = () => {toast.error("আবেদনটি প্রত্যাখ্যাত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
 
     // console.log(nRow);
     function handleClickReject(event, id) {
-        const emp_info = emp_leave_history?.filter((item)=> item.leave_id == id);
+        const emp_info = props.leave_history?.filter((item)=> item.leave_id == id);
         // console.log(emp_info);
 
         const obj = {
@@ -79,11 +74,13 @@ export default function ApprovalList() {
                 // window.alert("Action failed!");
             });
                 // window.alert("Action performed successfully!");
+            props.updateHistory(id);
 
         // window.location.reload();
     }
     function handleClick(event, id) {
-        const emp_info = emp_leave_history?.filter((item)=> item.leave_id == id);
+        event.preventDefault();
+        const emp_info = props.leave_history?.filter((item)=> item.leave_id == id);
         // console.log(emp_info);
 
         const obj = {
@@ -105,7 +102,7 @@ export default function ApprovalList() {
                 window.alert("Action failed!");
             });
             // window.alert("Action performed successfully!");
-            
+            props.updateHistory(id);
         // window.location.reload();
     }
 

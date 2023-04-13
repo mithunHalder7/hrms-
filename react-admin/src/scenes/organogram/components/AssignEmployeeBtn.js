@@ -38,11 +38,6 @@ const columns = [
     headerName: 'ফোন নং',
     width: 200,
   },
-  {
-    field: 'pos',
-    headerName: 'পদ',
-    width: 100,
-  },
 ];
 
 const rows = [
@@ -104,10 +99,10 @@ function PaperComponent(props: PaperProps) {
 
 
 
-export default function AssignEmployeeBtn() {
+export default function AssignEmployeeBtn(props) {
   const unPosEmployees = useFetch("http://localhost:5000/employee");
 
-  const nRow = unPosEmployees.map((item)=> Object.keys(item._office_post).length == 0? { id: item.id, name: item.name, phone_no:item.phone, pos: "নাই"} : {});
+  const nRow = unPosEmployees.map((item)=> Object.keys(item._office_post).length == 0? { id: item.id, name: item.name, phone_no:item.phone} : {});
   // console.log(nRow);
 
 
@@ -136,6 +131,10 @@ export default function AssignEmployeeBtn() {
 
   const handleAddEmpClose = () => {
     setOpenAddEmp(false);
+  };
+
+  const handleAddEmpAdd = () =>
+  {
     const empl_id = sessionStorage.getItem('sel_empl');
     sessionStorage.removeItem('sel_empl');
     const name = nRow.map((item)=>item.id == empl_id ? item.name: "");
@@ -154,8 +153,8 @@ export default function AssignEmployeeBtn() {
       .catch(function (error) {
         console.log(error);
       }); 
-    window.location.reload();
-  };
+    // window.location.reload();
+  }
 
 
   const formik = useFormik(
@@ -170,18 +169,7 @@ export default function AssignEmployeeBtn() {
           "parent_id": parseInt(parentId),
           "name": values.পদের_নাম,
         };
-        // console.log(JSON.stringify(obj));
-        // const handleSub = async(e)=>
-        // {
-        //   e.preventDefault();
-        //   try{
-        //     const resp = await axios.post('http://localhost:5000/office_post', JSON.stringify(obj));
-        //     console.log(resp.data);
-        //   }catch(error){
-        //     console.log(error.response)
-        //   }
-        // };
-        // handleSub();
+
         axios.post('http://localhost:5000/office_post', obj)
           .then(function (response) {
             console.log(response);
@@ -324,8 +312,8 @@ export default function AssignEmployeeBtn() {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleAddEmpClose}>
-            Save changes
+          <Button autoFocus onClick={handleAddEmpAdd}>
+            যুক্ত করুন
           </Button>
         </DialogActions>
       </BootstrapDialog>

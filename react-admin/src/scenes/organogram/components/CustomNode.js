@@ -24,10 +24,12 @@ function PaperComponent(props: PaperProps) {
 
 
 function CustomNode({ data }) {
+      // console.log(myProp);
       
       const [open, setOpen] = React.useState(false);
 
       const handleClickOpen = () => {
+        console.log("opened");
         setOpen(true);
       };
     
@@ -36,7 +38,7 @@ function CustomNode({ data }) {
       };
 
   return (
-    <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-stone-400" onClick={handleClickOpen}>
+    <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-stone-400">
         <Dialog
         open={open}
         onClose={handleClose}
@@ -56,7 +58,7 @@ function CustomNode({ data }) {
 
 
 
-      <div className="flex">
+      <div className="flex" onClick={handleClickOpen}>
         <div className="rounded-full w-12 h-12 flex justify-center items-center bg-gray-100">
           {data.emoji}
         </div>
@@ -73,4 +75,4 @@ function CustomNode({ data }) {
   );
 }
 
-export default React.memo(CustomNode);
+export default CustomNode;

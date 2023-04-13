@@ -27,7 +27,7 @@ const rows = [
 export default function LeaveStatus() {
     const usr_id = sessionStorage.getItem('act_usr_id');
     const emp_leave_history = useFetch('http://localhost:5000/employee/'+usr_id);
-    // console.log(emp_leave_history.leaves);
+    // console.log(emp_leave_history);
     let nRow = emp_leave_history.leaves?.map((item)=> item.leave_approval_status == 0 ? createData(item.leave_type.name, item.leave_start_date, item.leave_end_date, "সিদ্ধান্তহীন") : item.leave_approval_status == 1? createData(item.leave_type.name, item.leave_start_date, item.leave_end_date, "অনুমোদিত") : item.leave_approval_status == 2? createData(item.leave_type.name, item.leave_start_date, item.leave_end_date, "প্রত্যাখ্যাত") : {});
 
     return (

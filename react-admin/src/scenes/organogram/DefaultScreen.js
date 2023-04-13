@@ -28,7 +28,7 @@ export default function defaultScreen(props) {
     const handleClickOpen = () => {
       setOpen(true);
     };
-    const handleClose = () => {
+    const handleClose = (e) => {
       setOpen(false);
     };
   
