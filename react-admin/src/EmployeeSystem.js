@@ -8,9 +8,6 @@ import LeaveStatus from './scenes/LeaveStatus';
 import LeaveApproval from './scenes/LeaveApproval';
 import LeaveRecord from './scenes/LeaveRecord';
 import Topbar from "./scenes/global/Topbar";
-import { useState } from 'react';
-import { Box } from '@mui/material';
-import Typography from '@mui/material/Typography';
 import { Routes } from 'react-router-dom';
 import Modal from '@mui/material/Modal';
 import Dialog from '@mui/material/Dialog';
@@ -21,6 +18,9 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import useFetch from './scenes/organogram/useFetch';
 import axios from 'axios';
+import AttendanceStatus from './scenes/AttendanceStatus';
+import AttendanceLateApproval from './scenes/AttendanceLateApproval';
+
 
 const style = {
   position: 'absolute',
@@ -89,6 +89,8 @@ export default function EmployeeSystem() {
             <Route path="/LeaveRecord" element={<LeaveRecord />} />
             <Route path="/LeaveStatus" element={<LeaveStatus />} />
             <Route path="/LeaveApproval" element={<LeaveApproval postData = {chunks}/>} />
+            <Route path="/AttendanceStatus" element={<AttendanceStatus />} />
+            <Route path="/AttendanceLateApproval" element={<AttendanceLateApproval postData = {chunks}/>} />
             {/* <Route path="/organogram" element={<Organogram />} /> */}
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
             
