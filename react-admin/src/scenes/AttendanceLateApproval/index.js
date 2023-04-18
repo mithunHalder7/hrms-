@@ -26,8 +26,8 @@ const chunks = props.postData;
                 <Header
                     title="অধীনস্থদের দেরিতে প্রবেশ/দ্রুত অফিস ত্যাগ মওকুফ"
                 />
+                <ApprovalTable approve_history={approve_history}/>
             </Box>
-            <ApprovalTable approve_history={approve_history} />
         </div>
     )
 }

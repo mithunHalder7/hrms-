@@ -13,6 +13,54 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from 'dayjs';
 import useFetch from '../../organogram/useFetch';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import DateSelector from './DateSelector';
+import FormLabel from '@mui/material/FormLabel'
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
+
+function BootstrapDialogTitle(props) {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+}
+
+BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
 
 function createData(empl_id, empl_name) {
     return { empl_id, empl_name };
@@ -39,21 +87,27 @@ const usr_id = sessionStorage.getItem('act_usr_id');
 console.log(usr_id);
 
 export default function ApprovalTable(props) {
+    const [open, setOpen] = React.useState(false);
+    const useLeaveInf = useFetch('http://localhost:5000/daily_attendance');
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const [query_date, setDate] = useState("");
-    const [entry_value, setEntryValue] = React.useState(dayjs('2022-04-17T15:30'));
-    const [exit_value, setExitValue] = React.useState(dayjs('2022-04-17T15:30'));
 
-    const chunks = useFetch("http://localhost:5000/daily_attendance");
-
-    const filtered = chunks?.filter((item) => item.employee.id == usr_id);
-    // & dayjs(item.date) == query_date
+    const [currentDate, setCurrentDate] = useState("");
+    const [tvalue, settValue] = React.useState(dayjs('2022-04-17T15:30'));
+    const [lateCause, setLateCause] = useState("");
 
     const nRows = props.approve_history?.map((item) => createData(item.employee_id, item.employee_name));
 
     const handleDate = (val) => {
         setDate(val);
-        console.log(query_date);
+        // console.log(query_date);
     }
 
     function handleClick(event, id) {
@@ -61,16 +115,32 @@ export default function ApprovalTable(props) {
     }
     function handleClickReject(event, id) {
         event.preventDefault();
-       
-    }
-    function handleView(event, id){
 
+    }
+    function handleView(event, id) {
+        event.preventDefault();
+
+        const curr_leave = useLeaveInf?.filter((item)=> item.id == id);
+        const date_ = curr_leave?.map((item)=> item.date);
+        let time_ = curr_leave?.map((item)=> item.office_entry_time);
+        let cause_ = curr_leave?.map((item)=> item.late_cause);
+
+        const dayjs = require('dayjs');
+        let dateFormat = dayjs(date_).format('YYYY-MM-DD');
+
+        const time_n = dateFormat+"T"+time_[0];
+        console.log("useleave ",cause_[0]);
+
+        setCurrentDate(date_);
+        settValue(time_n);
+        setLateCause(cause_[0]);
+        handleClickOpen();
     }
     // console.log(arr);
 
     return (
         <div>
-            <TableContainer component={Paper} sx={{ minWidth: 550, m: 5 }}>
+            <TableContainer component={Paper} sx={{ minWidth: 550, m: 5, p: 5 }}>
                 <Table sx={{ minWidth: 550 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -91,17 +161,53 @@ export default function ApprovalTable(props) {
                                 </TableCell>
                                 <TableCell align="left">{row.empl_name}</TableCell>
                                 <TableCell align="center">
-                                    <Button size="small" sx={appBtn} onClick={(event) => handleClick(event, row.leave_id)}>অনুমোদন</Button>
-                                    <Button size="small" sx={rejBtn} onClick={(event) => handleClickReject(event, row.leave_id)}>প্রত্যাখ্যান</Button>
+                                    <Button size="small" sx={appBtn} onClick={(event) => handleClick(event, row.empl_id)}>অনুমোদন</Button>
+                                    <Button size="small" sx={rejBtn} onClick={(event) => handleClickReject(event, row.empl_id)}>প্রত্যাখ্যান</Button>
                                 </TableCell>
                                 <TableCell align="center">
-                                <Button size="small" onClick={(event) => handleView(event, row.leave_id)}><RemoveRedEyeOutlinedIcon/></Button>
+                                    <Button size="small" onClick={(event) => handleView(event, row.empl_id)}><RemoveRedEyeOutlinedIcon /></Button>
                                 </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    দেরিতে প্রবেশের তথ্য
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                    <DateSelector handleDate={handleDate} setDate ={currentDate}/>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <TimePicker
+                        label="অফিস প্রবেশের সময়"
+                        value={tvalue}
+                        readOnly
+                        sx={{
+                            marginLeft:"50px",
+                            marginBottom: "20px"
+                        }}
+                    />
+                    </LocalizationProvider>
+                    
+                    <FormLabel sx={{my:5}}>দেরির কারণ/দ্রুত অফিস ত্যাগের কারণ</FormLabel>
+                    <input
+                    type="text"
+                    value={lateCause}
+                    readOnly
+                    style={{display:"block"}}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose}>
+                        বন্ধ করুন
+                    </Button>
+                </DialogActions>
+            </BootstrapDialog>
         </div>
     )
 }

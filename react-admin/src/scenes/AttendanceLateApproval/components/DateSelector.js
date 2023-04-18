@@ -9,30 +9,17 @@ import { Formik, useFormik } from 'formik';
 
 
 export default function DatePickerValue(props) {
-    const [value, setValue] = React.useState("");
-
-
-    const dateChange = (event)=>{
-        event.preventDefault();
-        setValue(event.target.value);
-    }
+    const [value, setValue] = React.useState(dayjs(props.setDate));
 
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <FormControl sx={{ m: 1, minWidth: 210, borderBottom: "2px solid #99C4C8" }}>
-                <label htmlFor="att_date">Date</label>
-                <input
-                    type="date"
-                    id="att_date"
-                    name="att_date"
-                    format="dd-mm-yyyy"
-                    placeholder="dd-mm-yyyy"
-                    value={value}
-                    onChange={dateChange}
-                    onClick={props.handleDate(dayjs(value).format('DD-MM-YYYY'))}
-                />
-            </FormControl>
+            <DatePicker
+          label="তারিখ"
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+          readOnly
+        />
         </LocalizationProvider>
     );
 }

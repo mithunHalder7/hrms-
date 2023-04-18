@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import DateSelector from '../../AttendanceEntry/components/DateSelector';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -13,18 +12,61 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import dayjs from 'dayjs';
 import useFetch from '../../organogram/useFetch';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import Typography from '@mui/material/Typography';
+import DateSelector from './DateSelector';
+import FormLabel from '@mui/material/FormLabel'
+
+const BootstrapDialog = styled(Dialog)(({ theme }) => ({
+    '& .MuiDialogContent-root': {
+        padding: theme.spacing(2),
+    },
+    '& .MuiDialogActions-root': {
+        padding: theme.spacing(1),
+    },
+}));
+
+function BootstrapDialogTitle(props) {
+    const { children, onClose, ...other } = props;
+
+    return (
+        <DialogTitle sx={{ m: 0, p: 2 }} {...other}>
+            {children}
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    onClick={onClose}
+                    sx={{
+                        position: 'absolute',
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                    }}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </DialogTitle>
+    );
+}
+
+BootstrapDialogTitle.propTypes = {
+    children: PropTypes.node,
+    onClose: PropTypes.func.isRequired,
+};
 
 
 function createData(empl_id, empl_start, empl_end, empl_stat) {
-    return {empl_id, empl_start, empl_end, empl_stat};
+    return { empl_id, empl_start, empl_end, empl_stat };
 }
 
-const rows = [
-    createData(1, "dsadad", "dasdad", "dasd", "dsad"),
-    createData(2, "dsadad", "dasdad", "dasd", "dsad"),
-    createData(3, "dsadad", "dasdad", "dasd", "dsad"),
-    createData(4, "dsadad", "dasdad", "dasd", "dsad"),
-];
 const appBtn =
 {
     background: "#99C4C8",
@@ -38,17 +80,17 @@ const usr_id = sessionStorage.getItem('act_usr_id');
 console.log(usr_id);
 
 export default function AttendanceTable() {
-
+    const [open, setOpen] = React.useState(false);
     const [query_date, setDate] = useState("");
     const [entry_value, setEntryValue] = React.useState(dayjs('2022-04-17T15:30'));
     const [exit_value, setExitValue] = React.useState(dayjs('2022-04-17T15:30'));
 
     const chunks = useFetch("http://localhost:5000/daily_attendance");
-
-    const filtered = chunks?.filter((item)=> item.employee.id == usr_id);
+    // chunks?.map((item)=> console.log(item.date));
+    const filtered = chunks?.filter((item) => (item.employee.id == usr_id) & item.date == query_date);
     // & dayjs(item.date) == query_date
 
-    const nRows = filtered?.map((item)=> createData(item.employee.id, item.office_entry_time, item.office_exit_time, item.late_approval_status));
+    const nRows = filtered?.map((item) => createData(item.employee.id, item.office_entry_time, item.office_exit_time, item.late_approval_status));
 
     const handleDate = (val) => {
         setDate(val);
@@ -57,7 +99,16 @@ export default function AttendanceTable() {
 
     function handleClick(event, id) {
         event.preventDefault();
+        handleClickOpen();
     }
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const [currentDate, setCurrentDate] = useState("");
+    const [tvalue, settValue] = React.useState(dayjs('2022-04-17T15:30'));
 
     // console.log(arr);
 
@@ -95,6 +146,39 @@ export default function AttendanceTable() {
                     </TableBody>
                 </Table>
             </TableContainer>
+            <BootstrapDialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+                <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    দেরিতে প্রবেশের তথ্য
+                </BootstrapDialogTitle>
+                <DialogContent dividers>
+                    <DateSelector handleDate={handleDate} setDate={currentDate} />
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <TimePicker
+                            label="অফিস প্রবেশের সময়"
+                            value={tvalue}
+                            sx={{
+                                marginBottom: "20px",
+                                display: "block"
+                            }}
+                        />
+                    </LocalizationProvider>
+
+                    <FormLabel sx={{ my: 5 }}>দেরির কারণ/দ্রুত অফিস ত্যাগের কারণ</FormLabel>
+                    <input
+                        type="text"
+                        style={{ display: "block" }}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button autoFocus onClick={handleClose}>
+                        বন্ধ করুন
+                    </Button>
+                </DialogActions>
+            </BootstrapDialog>
         </div>
     )
 }
