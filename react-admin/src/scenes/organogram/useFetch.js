@@ -38,13 +38,13 @@ import axios from 'axios';
   // }, []);
 
 
-export default function useFetch(url) {
+const useFetch = (url) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     axios.get(url)
       .then(response => {
-        setData(response.data);
+          setData(response.data);
       })
       .catch(error => {
         console.log(error);
@@ -53,3 +53,5 @@ export default function useFetch(url) {
     
     return data;
 }
+
+export default useFetch;

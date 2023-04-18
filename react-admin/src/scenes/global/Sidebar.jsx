@@ -14,6 +14,10 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
 import FactCheckOutlinedIcon from '@mui/icons-material/FactCheckOutlined';
 import RemoveDoneSharpIcon from '@mui/icons-material/RemoveDoneSharp';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import RuleFolderIcon from '@mui/icons-material/RuleFolder';
+
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -145,6 +149,22 @@ const Sidebar = () => {
                 title="ছুটি অনুমোদন/প্রত্যাখ্যান"
                 to="/LeaveApproval"
                 icon={<RemoveDoneSharpIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              </TreeItem>
+              <TreeItem nodeId="2" label="উপস্থিতি">
+              <Item
+                title="উপস্থিতির স্ট্যাটাস "
+                to="/AttendanceStatus"
+                icon={<ContentPasteSearchIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="অধীনস্থদের দেরিতে প্রবেশ মওকুফ"
+                to="/AttendanceLateApproval"
+                icon={<RuleFolderIcon/>}
                 selected={selected}
                 setSelected={setSelected}
               />

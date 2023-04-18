@@ -32,7 +32,6 @@ export default function LoginPage() {
   const usr_list = useFetch('http://localhost:5000/employee');
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [open, setOpen] = useState(false);
 
@@ -82,7 +81,8 @@ export default function LoginPage() {
         verifyObj = error;
       });
 
-      console.log(verifyObj);
+      // console.log(verifyObj);
+
     }
   }
 

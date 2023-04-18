@@ -63,56 +63,19 @@ const getLayoutedElements = (nodes, edges, direction = 'TB') => {
 };
 
 
-// const makeNodes=()=>
-// {
-//     let arr = [];
-//     DataPosition.map((items) => arr.push(items));
-//     console.log(arr);
-//     return arr;
-// }
-
-// const arr = makeNodes();
-// let initNode = JSON.parse(window.localStorage.getItem('user'));
-// let initEdge = JSON.parse(window.localStorage.getItem('edges'));
-// console.log(initEdge);
-// if(initNode === null)
-// {
-//   initNode = Array.from(initNode);
-//   initEdge = Array.from(initEdge);
-// }
-
-
-
-// const obj = {
-//           id: values.পদের_নাম.toString(),
-//           type: 'custom',
-//           data: { name: '', job: pName.toString(), emoji: '', department: values.বিভাগ },
-//           position: { x: 0, y: 0 },
-//         };
 
 
 
 const onNodeClick = (event, node) => {
-
-  // console.log(window.localStorage.getItem('edges'));
-
   window.localStorage.setItem('parent', JSON.stringify(node.id));
   window.localStorage.setItem('parent_pos', JSON.stringify(node.data.job));
   window.localStorage.setItem('parent_dept', JSON.stringify(node.data.dep_id));
-  // console.log(node.data.dep_id);
-  // console.log(window.localStorage.getItem('parent'));
-  // console.log(window.localStorage.getItem('edges'));
-  // makeNodes();
-  // var newObj = window.localStorage.getItem('user');
-  // console.log(newObj);
 
 }
 
 
 const initNode = JSON.parse(window.localStorage.getItem('nodes'));
 const initEdge = JSON.parse(window.localStorage.getItem('edges'));
-
-console.log(initNode);
 
 
 
@@ -128,6 +91,9 @@ const AsholOrganogram = () => {
 
   const [nodes, setNodes, onNodesChange] = useNodesState(layoutedNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(layoutedEdges);
+  
+
+  // const customMsg = useCallback(msg, []);
 
   const onConnect = useCallback(
     (params) =>
@@ -151,6 +117,7 @@ const AsholOrganogram = () => {
   );
 
   const [captureElementClick, setCaptureElementClick] = React.useState(true);
+
 
   return (
     <div className="layoutflow">

@@ -8,17 +8,14 @@ import SVGComponent from "./SVGComponent";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
-import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarTodayOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
-import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
-import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
-import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
-import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
-import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
-import { BorderAll } from "@mui/icons-material";
 import MediationOutlinedIcon from "@mui/icons-material/MediationOutlined";
+import AttendanceEntry from '../AttendanceEntry';
+import TreeItem from '@mui/lab/TreeItem/TreeItem';
+import TreeView from '@mui/lab/TreeView/TreeView';
+import ContentPasteSearchIcon from '@mui/icons-material/ContentPasteSearch';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -54,6 +51,7 @@ const Admin_Sidebar = () => {
           background: "#F7FBFC",
           boxShadow: "0px 4px 35px -3px rgba(0, 0, 0, 0.25)",
           borderRadius: "55px",
+          width:"280px"
         },
         "& .pro-icon-wrapper": {
           backgroundColor: "transparent !important",
@@ -61,6 +59,7 @@ const Admin_Sidebar = () => {
         "& .pro-inner-item": {
           backgroundColor: "#F7FBFC",
           borderRadius: "60px",
+          textAlign:"center"
         },
         "& .pro-inner-item:hover": {
           color: "#868dfb !important",
@@ -68,25 +67,30 @@ const Admin_Sidebar = () => {
         "& .pro-menu-item.active": {
           color: "#6870fa !important",
         },
+        "& .MuiTreeItem-content":
+        {
+          padding:"15px",
+          textAlign:"center",
+          background: "none",
+          color:"black"
+        },
+        "& .MuiTreeItem-content:hover":
+        {
+          color: "#868dfb !important",
+          background: "transparent",
+
+        },
+        "& .MuiTreeItem-content:active":
+        {
+          color: "#868dfb !important",
+          background: "none",
+
+        },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu>
-          <MenuItem>
-            {/* {(
-              <Box
-                display="flex"
-                justifyContent="space-between"
-                alignItems="center"
-                ml="30px"
-                mt="25px"
-              >
-                <Typography variant="h4" color={colors.redAccent}>
-                  HRMS++
-                </Typography>
-              </Box>
-            )} */}
-
+        <MenuItem>
             {
               <Box
                 sx={{
@@ -103,6 +107,12 @@ const Admin_Sidebar = () => {
           </MenuItem>
 
           <Box >
+          <TreeView
+              aria-label="file system navigator"
+              defaultCollapseIcon={<ExpandMoreIcon />}
+              defaultExpandIcon={<ChevronRightIcon />}
+              sx={{ height: 240, flexGrow: 1, maxWidth: 300}}
+            >
             <Item
               title="ড্যাশবোর্ড"
               to="/dashboard"
@@ -126,6 +136,23 @@ const Admin_Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
+            <TreeItem nodeId="1" label="উপস্থিতি">
+            <Item
+                title="প্রবেশের সময় নির্ধারণ"
+                to="/AttendanceTime"
+                icon={<ScheduleIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              <Item
+                title="উপস্থিতি সংরক্ষণ"
+                to="/AttendanceEntry"
+                icon={<ContentPasteSearchIcon/>}
+                selected={selected}
+                setSelected={setSelected}
+              />
+              </TreeItem>
+              
             {/* <Item
               title="Invoices Balances"
               to="/invoices"
@@ -186,6 +213,7 @@ const Admin_Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             /> */}
+            </TreeView>
           </Box>
         </Menu>
       </ProSidebar>
