@@ -30,7 +30,7 @@ export default function DatePickerValue(props) {
                     placeholder="dd-mm-yyyy"
                     value={value}
                     onChange={dateChange}
-                    onClick={props.handleDate(dayjs(value).format('DD/MM/YYYY'))}
+                    onClick={props.handleDate(dayjs(value).format('MM/DD/YYYY'))}
                 />
             </FormControl>
         </LocalizationProvider>

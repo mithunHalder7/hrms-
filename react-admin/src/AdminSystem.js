@@ -35,7 +35,6 @@ export default function EmployeeSystem() {
             <Route path="/organogram" element={<Organogram />} />
             <Route path="/Employee" element={<EmlpoyeeList />} />
             <Route path="/AttendanceEntry" element={<AttendanceEntry />} />
-            <Route path="/AttendanceTime" element={<AttendanceTime />} />
             {/* <Route path="/organogram" element={<Organogram />} /> */}
             {/* <Route path="/Employee" element={<EmlpoyeeList />} /> */}
             

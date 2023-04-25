@@ -11,7 +11,7 @@ const chunks = props.postData;
   const usr_id = sessionStorage.getItem('act_usr_id');
   const usr_post_data = chunks?.filter((item) => item?.employee?.id == usr_id);
   const pos_id = usr_post_data[0]?.id;
-
+    // console.log(pos_id);
   const initHistory = useFetch('http://localhost:5000/daily_attendance/subordinate_late_attendance/'+pos_id);
 
   const [approve_history, setHistory] = useState(initHistory);
@@ -20,13 +20,20 @@ const chunks = props.postData;
     setHistory(initHistory);
 }, [initHistory]);
 
+const updateHistory = (prevData) =>
+{
+  const FilteredHistory = approve_history.filter((item)=> item.daily_attendance_id != prevData);
+  setHistory(FilteredHistory);
+  // console.log(FilteredHistory);
+}
+
     return (
         <div>
             <Box mx="60px">
                 <Header
                     title="অধীনস্থদের দেরিতে প্রবেশ/দ্রুত অফিস ত্যাগ মওকুফ"
                 />
-                <ApprovalTable approve_history={approve_history}/>
+                <ApprovalTable approve_history={approve_history} updateHistory = {updateHistory}/>
             </Box>
         </div>
     )

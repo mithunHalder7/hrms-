@@ -137,13 +137,6 @@ const Admin_Sidebar = () => {
               setSelected={setSelected}
             />
             <TreeItem nodeId="1" label="উপস্থিতি">
-            <Item
-                title="প্রবেশের সময় নির্ধারণ"
-                to="/AttendanceTime"
-                icon={<ScheduleIcon/>}
-                selected={selected}
-                setSelected={setSelected}
-              />
               <Item
                 title="উপস্থিতি সংরক্ষণ"
                 to="/AttendanceEntry"

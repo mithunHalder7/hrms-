@@ -23,6 +23,10 @@ import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import DateSelector from './DateSelector';
 import FormLabel from '@mui/material/FormLabel'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
+
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
     '& .MuiDialogContent-root': {
@@ -62,8 +66,8 @@ BootstrapDialogTitle.propTypes = {
     onClose: PropTypes.func.isRequired,
 };
 
-function createData(empl_id, empl_name) {
-    return { empl_id, empl_name };
+function createData(empl_id, empl_name, leave_id) {
+    return { empl_id, empl_name, leave_id};
 }
 
 const appBtn =
@@ -103,7 +107,11 @@ export default function ApprovalTable(props) {
     const [tvalue, settValue] = React.useState(dayjs('2022-04-17T15:30'));
     const [lateCause, setLateCause] = useState("");
 
-    const nRows = props.approve_history?.map((item) => createData(item.employee_id, item.employee_name));
+    const nRows = props.approve_history?.map((item) => createData(item.employee_id, item.employee_name, item.daily_attendance_id));
+    // console.log(nRows);
+    const notifyApproved = () => {toast.success("আবেদনটি অনুমোদিত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
+    const notifyRejected = () => {toast.error("আবেদনটি প্রত্যাখ্যাত হয়েছে!", {position: toast.POSITION.BOTTOM_RIGHT})};
+
 
     const handleDate = (val) => {
         setDate(val);
@@ -112,9 +120,45 @@ export default function ApprovalTable(props) {
 
     function handleClick(event, id) {
         event.preventDefault();
+        const curr_leave = useLeaveInf?.filter((item)=> item.id == id);
+        let cause_ = curr_leave?.map((item)=> item.late_cause);
+
+        const obj = {
+            "late_approval_status": 2,
+            "late_cause": cause_[0]
+        };
+        axios.put('http://localhost:5000/daily_attendance_approve_reject/' + id, obj)
+            .then(function (response) {
+                console.log(response);
+                // window.alert("Action performed successfully!");
+                notifyApproved();
+            })
+            .catch(function (error) {
+                console.log(error);
+                window.alert("Action failed!");
+            });
+            props.updateHistory(id);
     }
     function handleClickReject(event, id) {
         event.preventDefault();
+        const curr_leave = useLeaveInf?.filter((item)=> item.id == id);
+        let cause_ = curr_leave?.map((item)=> item.late_cause);
+
+        const obj = {
+            "late_approval_status": 3,
+            "late_cause": cause_[0]
+        };
+        axios.put('http://localhost:5000/daily_attendance_approve_reject/' + id, obj)
+            .then(function (response) {
+                console.log(response);
+                // window.alert("Action performed successfully!");
+                notifyRejected();
+            })
+            .catch(function (error) {
+                console.log(error);
+                window.alert("Action failed!");
+            });
+            props.updateHistory(id);
 
     }
     function handleView(event, id) {
@@ -161,11 +205,11 @@ export default function ApprovalTable(props) {
                                 </TableCell>
                                 <TableCell align="left">{row.empl_name}</TableCell>
                                 <TableCell align="center">
-                                    <Button size="small" sx={appBtn} onClick={(event) => handleClick(event, row.empl_id)}>অনুমোদন</Button>
-                                    <Button size="small" sx={rejBtn} onClick={(event) => handleClickReject(event, row.empl_id)}>প্রত্যাখ্যান</Button>
+                                    <Button size="small" sx={appBtn} onClick={(event) => handleClick(event, row.leave_id)}>অনুমোদন</Button>
+                                    <Button size="small" sx={rejBtn} onClick={(event) => handleClickReject(event, row.leave_id)}>প্রত্যাখ্যান</Button>
                                 </TableCell>
-                                <TableCell align="center">
-                                    <Button size="small" onClick={(event) => handleView(event, row.empl_id)}><RemoveRedEyeOutlinedIcon /></Button>
+                                <TableCell align="center" sx={{color:"black"}}>
+                                    <Button size="small" onClick={(event) => handleView(event, row.leave_id)}><RemoveRedEyeOutlinedIcon /></Button>
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -208,6 +252,7 @@ export default function ApprovalTable(props) {
                     </Button>
                 </DialogActions>
             </BootstrapDialog>
+            <ToastContainer/>
         </div>
     )
 }
